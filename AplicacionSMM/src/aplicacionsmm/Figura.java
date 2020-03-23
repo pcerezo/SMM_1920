@@ -6,9 +6,12 @@
 package aplicacionsmm;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  *
@@ -21,7 +24,7 @@ public class Figura {
     private Color color;
     
     public Figura() {
-        this.figura = null;
+        this.figura = new Ellipse2D.Float(0,0,0,0);
         this.relleno = false;
         this.tipo = null;
         this.color = Color.BLACK;
@@ -54,5 +57,24 @@ public class Figura {
     
     public boolean contains(Point2D paux) {
         return this.figura.contains(paux);
+    }
+    
+    public void setLocation(Point pnew) {
+        switch(this.getTipo()) {
+            case LINEA:
+                Linea linea = (Linea) this.figura;
+                int dx = (int) linea.getX1() - (int) linea.getX2();
+                int dy = (int) linea.getY1() - (int) linea.getY2();
+                
+                linea.setLine(pnew.getX(), pnew.getY(), pnew.getX()+dx, pnew.getY()+dy);
+                break;
+            case RECTANGULO:
+                Rectangle rec = (Rectangle) this.figura;
+                rec.setLocation((Point) pnew);
+                break;
+            case OVALO:
+                Ovalo ovalo = (Ovalo) this.figura;
+                ovalo.setLocation(pnew);
+        }
     }
 }

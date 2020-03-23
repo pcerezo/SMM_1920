@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
@@ -36,7 +37,7 @@ public class Lienzo extends javax.swing.JPanel {
     public Lienzo() {
         initComponents();
         this.figuras = new ArrayList();
-        this.figuraActual = null;
+        this.figuraActual = new Figura();
         this.relleno = false;
         this.editar = false;
     }
@@ -202,12 +203,12 @@ public class Lienzo extends javax.swing.JPanel {
                     this.figuras.add(new Figura(linea, false, Tipo.LINEA, this.getColor()));
                     break;
                 case RECTANGULO:
-                    Rectangle2D rec = new Rectangle2D.Float(p.x, p.y, 0, 0);
+                    Rectangle rec = new Rectangle(p.x, p.y, 0, 0);
                     //this.figuraActual = new Figura(rec, this.isRelleno(), Tipo.RECTANGULO);
                     this.figuras.add(new Figura(rec, this.isRelleno(), Tipo.RECTANGULO, this.getColor()));
                     break;
                 case OVALO:
-                    Ellipse2D.Float ovalo = new Ellipse2D.Float(p.x, p.y, 0, 0);
+                    Ovalo ovalo = new Ovalo(p.x, p.y, 0, 0);
                     //this.figuraActual = new Figura(ovalo, this.isRelleno(), Tipo.OVALO);
                     this.figuras.add(new Figura(ovalo, this.isRelleno(), Tipo.OVALO, this.getColor()));
                     break;
@@ -228,7 +229,10 @@ public class Lienzo extends javax.swing.JPanel {
         
         if (this.isEditar()) {
             //Ahora movemos la figura seleccionada
-            System.out.println("Moviendo una figura de tipo " + this.figuraActual.getTipo()); //Comprobar que la detecta
+            if (this.figuraActual != null){
+                this.figuraActual.setLocation(p2);
+                System.out.println("Moviendo una figura de tipo " + this.figuraActual.getTipo()); //Comprobar que la detecta
+            }
         }
         else {
             this.figuraActual = this.figuras.get(this.figuras.size()-1);
@@ -238,11 +242,11 @@ public class Lienzo extends javax.swing.JPanel {
                     linea.setLine(p, p2);
                     break;
                 case RECTANGULO:
-                    Rectangle2D.Float rec = (Rectangle2D.Float) this.figuraActual.getFigura();
+                    Rectangle rec = (Rectangle) this.figuraActual.getFigura();
                     rec.setFrameFromDiagonal(p, p2);
                     break;
                 case OVALO:
-                    Ellipse2D.Float ovalo = (Ellipse2D.Float) this.figuraActual.getFigura();
+                    Ovalo ovalo = (Ovalo) this.figuraActual.getFigura();
                     ovalo.setFrameFromDiagonal(p, p2);
                     break;
             }
