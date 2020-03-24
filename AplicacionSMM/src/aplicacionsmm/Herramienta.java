@@ -10,5 +10,5 @@ package aplicacionsmm;
  * @author pablo
  */
 public enum Herramienta {
-    LAPIZ, LINEA, RECTANGULO, OVALO;
+    LAPIZ, LINEA, RECTANGULO, OVALO, PERA;
 }

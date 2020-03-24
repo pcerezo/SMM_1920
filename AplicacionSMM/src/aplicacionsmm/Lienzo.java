@@ -30,6 +30,7 @@ public class Lienzo extends javax.swing.JPanel {
     private Herramienta herramienta = Herramienta.LAPIZ; //Por defecto, lápiz
     private ArrayList<Figura> figuras;
     private Figura figuraActual;
+    private Pera pera;
     
     /**
      * Creates new form Lienzo
@@ -40,6 +41,7 @@ public class Lienzo extends javax.swing.JPanel {
         this.figuraActual = new Figura();
         this.relleno = false;
         this.editar = false;
+        this.pera = new Pera();
     }
     
     @Override
@@ -61,27 +63,7 @@ public class Lienzo extends javax.swing.JPanel {
             }
         }
         
-        /*switch(this.herramienta){
-            case LAPIZ: //dibujamos puntos
-                g.fillOval(p.x-15, p.y-15, 20, 20);
-                break;
-            case LINEA:
-                g.drawLine(p.x, p.y, p2.x, p2.y);
-                break;
-            case RECTANGULO:
-                if (isRelleno())
-                    g.fillRect(Math.min(p.x, p2.x), Math.min(p.y, p2.y), Math.abs(p2.x - p.x), Math.abs(p2.y-p.y));
-                else
-                    g.drawRect(Math.min(p.x, p2.x), Math.min(p.y, p2.y), Math.abs(p2.x - p.x), Math.abs(p2.y-p.y));
-                break;
-            case OVALO:
-                if (isRelleno())
-                    g.fillOval(Math.min(p.x, p2.x), Math.min(p.y, p2.y), Math.abs(p2.x - p.x), Math.abs(p2.y-p.y));
-                else
-                    g.drawOval(Math.min(p.x, p2.x), Math.min(p.y, p2.y), Math.abs(p2.x - p.x), Math.abs(p2.y-p.y));
-                break;
-        }*/
-        
+        this.pera.paint(g);
         
         System.out.println("Herramienta: " + this.getHerramienta());
         //g.drawLine(20, 20, 200, 200);
@@ -198,7 +180,7 @@ public class Lienzo extends javax.swing.JPanel {
                     this.figuras.add(new Figura(punto, true, Tipo.PUNTO, this.getColor()));
                     break;
                 case LINEA:
-                    Line2D linea = new Line2D.Float(p, p);
+                    Linea linea = new Linea(p, p);
                     //this.figuraActual = new Figura(linea, false, Tipo.LINEA);
                     this.figuras.add(new Figura(linea, false, Tipo.LINEA, this.getColor()));
                     break;
@@ -212,6 +194,8 @@ public class Lienzo extends javax.swing.JPanel {
                     //this.figuraActual = new Figura(ovalo, this.isRelleno(), Tipo.OVALO);
                     this.figuras.add(new Figura(ovalo, this.isRelleno(), Tipo.OVALO, this.getColor()));
                     break;
+                case PERA:
+                    Pera pera = new Pera();
             }
         }
         
@@ -238,7 +222,7 @@ public class Lienzo extends javax.swing.JPanel {
             this.figuraActual = this.figuras.get(this.figuras.size()-1);
             switch (this.figuraActual.getTipo()) {
                 case LINEA:
-                    Line2D linea = (Line2D) this.figuraActual.getFigura();
+                    Linea linea = (Linea) this.figuraActual.getFigura();
                     linea.setLine(p, p2);
                     break;
                 case RECTANGULO:

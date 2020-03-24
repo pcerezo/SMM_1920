@@ -10,5 +10,5 @@ package aplicacionsmm;
  * @author pabloc
  */
 public enum Tipo {
-    PUNTO, LINEA, RECTANGULO, OVALO;
+    PUNTO, LINEA, RECTANGULO, OVALO, PERA;
 }

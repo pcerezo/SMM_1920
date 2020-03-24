@@ -56,6 +56,14 @@ public class Figura {
     public Color getColor() { return this.color;}
     
     public boolean contains(Point2D paux) {
+        /*switch (this.getTipo()) {
+            case LINEA:
+                Linea linea = (Linea) this.figura;
+                linea.contains(paux);
+                break;
+            
+        }*/
+        
         return this.figura.contains(paux);
     }
     
@@ -63,10 +71,10 @@ public class Figura {
         switch(this.getTipo()) {
             case LINEA:
                 Linea linea = (Linea) this.figura;
-                int dx = (int) linea.getX1() - (int) linea.getX2();
-                int dy = (int) linea.getY1() - (int) linea.getY2();
+                int ancho = (int) pnew.getX() - (int) linea.getX1();
+                int alto = (int) pnew.getY() - (int) linea.getY1();
                 
-                linea.setLine(pnew.getX(), pnew.getY(), pnew.getX()+dx, pnew.getY()+dy);
+                linea.setLine(pnew.getX(), pnew.getY(), linea.getX2()+ancho, linea.getY2()+alto);
                 break;
             case RECTANGULO:
                 Rectangle rec = (Rectangle) this.figura;

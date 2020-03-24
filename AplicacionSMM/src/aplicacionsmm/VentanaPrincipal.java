@@ -54,6 +54,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton3 = new javax.swing.JToggleButton();
         jToggleButton4 = new javax.swing.JToggleButton();
+        jToggleButton6 = new javax.swing.JToggleButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -264,6 +265,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jToolBar1.add(jToggleButton4);
 
+        jToggleButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pera.png"))); // NOI18N
+        jToggleButton6.setFocusable(false);
+        jToggleButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton6ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jToggleButton6);
+
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
         jMenu1.setText("Archivo");
@@ -421,6 +433,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.jToggleButton2.setSelected(false);
         this.jToggleButton3.setSelected(false);
         this.jToggleButton4.setSelected(false);
+        this.jToggleButton6.setSelected(false);
         this.herramienta_actual.setText("Herramienta actual: " + this.lienzo1.getHerramienta().toString());
     }//GEN-LAST:event_lapizActivado
 
@@ -430,6 +443,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.jToggleButton1.setSelected(false);
         this.jToggleButton3.setSelected(false);
         this.jToggleButton4.setSelected(false);
+        this.jToggleButton6.setSelected(false);
         this.herramienta_actual.setText("Herramienta actual: " + this.lienzo1.getHerramienta().toString());
     }//GEN-LAST:event_lineaActivado
 
@@ -439,6 +453,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.jToggleButton2.setSelected(false);
         this.jToggleButton1.setSelected(false);
         this.jToggleButton4.setSelected(false);
+        this.jToggleButton6.setSelected(false);
         this.herramienta_actual.setText("Herramienta actual: " + this.lienzo1.getHerramienta().toString());
     }//GEN-LAST:event_rectanguloActivado
 
@@ -448,6 +463,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.jToggleButton2.setSelected(false);
         this.jToggleButton3.setSelected(false);
         this.jToggleButton1.setSelected(false);
+        this.jToggleButton6.setSelected(false);
         this.herramienta_actual.setText("Herramienta actual: " + this.lienzo1.getHerramienta().toString());
     }//GEN-LAST:event_ovaloActivado
 
@@ -458,6 +474,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         else
             this.lienzo1.setEditar(false);
     }//GEN-LAST:event_EditarActionPerformed
+
+    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
+        this.jToggleButton6.setSelected(true);
+        lienzo1.setHerramienta(Herramienta.PERA);
+        this.jToggleButton4.setSelected(false);
+        this.jToggleButton2.setSelected(false);
+        this.jToggleButton3.setSelected(false);
+        this.jToggleButton1.setSelected(false);
+        this.herramienta_actual.setText("Herramienta actual: " + this.lienzo1.getHerramienta().toString());
+    }//GEN-LAST:event_jToggleButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -524,6 +550,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JToolBar jToolBar1;
     private aplicacionsmm.Lienzo lienzo1;
     private javax.swing.JCheckBoxMenuItem ver_barra_estado;
