@@ -30,7 +30,7 @@ public class Lienzo extends javax.swing.JPanel {
     private Herramienta herramienta = Herramienta.LAPIZ; //Por defecto, lápiz
     private ArrayList<Figura> figuras;
     private Figura figuraActual;
-    private Pera pera;
+    //private Pera pera;
     
     /**
      * Creates new form Lienzo
@@ -41,7 +41,7 @@ public class Lienzo extends javax.swing.JPanel {
         this.figuraActual = new Figura();
         this.relleno = false;
         this.editar = false;
-        this.pera = new Pera();
+        //this.pera = new Pera();
     }
     
     @Override
@@ -55,15 +55,21 @@ public class Lienzo extends javax.swing.JPanel {
         
         for (Figura f: this.figuras) {
             g2d.setColor(f.getColor());
-            if (f.isRelleno()) {
-                g2d.fill(f.getFigura());
+            if (f.getTipo() == Tipo.PERA) {
+                Pera pera = (Pera) f.getFigura();
+                pera.paint(g);
             }
             else {
-                g2d.draw(f.getFigura());
+                if (f.isRelleno()) {
+                    g2d.fill(f.getFigura());
+                }
+                else {
+                    g2d.draw(f.getFigura());
+                }
             }
         }
         
-        this.pera.paint(g);
+        //this.pera.paint(g);
         
         System.out.println("Herramienta: " + this.getHerramienta());
         //g.drawLine(20, 20, 200, 200);
@@ -195,7 +201,8 @@ public class Lienzo extends javax.swing.JPanel {
                     this.figuras.add(new Figura(ovalo, this.isRelleno(), Tipo.OVALO, this.getColor()));
                     break;
                 case PERA:
-                    Pera pera = new Pera();
+                    Pera pera = new Pera(p.x, p.y, 100, 140);
+                    this.figuras.add(new Figura(pera, this.isRelleno(), Tipo.PERA, this.getColor()));
             }
         }
         
@@ -233,6 +240,10 @@ public class Lienzo extends javax.swing.JPanel {
                     Ovalo ovalo = (Ovalo) this.figuraActual.getFigura();
                     ovalo.setFrameFromDiagonal(p, p2);
                     break;
+                /*case PERA:
+                    Pera p = (Pera) this.figuraActual.getFigura();
+                    p.setFrameFromDiagonal(this.p, this.p2);
+                    break;*/
             }
         }
         
