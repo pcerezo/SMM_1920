@@ -5,6 +5,10 @@
  */
 package smm_p7;
 
+import SM.PCS.Graficos.Herramienta;
+import java.awt.Color;
+import javax.swing.event.InternalFrameAdapter;
+
 /**
  *
  * @author pabloc
@@ -14,10 +18,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VentanaInterna
      */
+    
+    private Herramienta herramientaActual;
+    
     public VentanaPrincipal() {
         initComponents();
+        this.herramientaActual = Herramienta.LAPIZ;
+        this.etiquetaHerramientaActual.setText("Ventana Principal: " + Herramienta.LAPIZ); // Por defecto el lápiz al principio
     }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,118 +36,96 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
-        ventanaInterna1 = new smm_p7.VentanaInterna();
-        lienzo2D1 = new smm_p7.Lienzo2D();
         jToolBar2 = new javax.swing.JToolBar();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
-        jPanel2 = new javax.swing.JPanel();
+        botonLapiz = new javax.swing.JToggleButton();
+        botonLinea = new javax.swing.JToggleButton();
+        botonRectangulo = new javax.swing.JToggleButton();
+        botonOvalo = new javax.swing.JToggleButton();
+        botonPera = new javax.swing.JToggleButton();
+        PanelBotones = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jSpinner1 = new javax.swing.JSpinner();
+        etiquetaHerramientaActual = new javax.swing.JLabel();
+        colorNegro = new javax.swing.JButton();
+        colorBlanco = new javax.swing.JButton();
+        colorAmarillo = new javax.swing.JButton();
+        colorRojo = new javax.swing.JButton();
+        colorVerde = new javax.swing.JButton();
+        colorAzul = new javax.swing.JButton();
+        botonRelleno = new javax.swing.JCheckBox();
+        botonEditar = new javax.swing.JCheckBox();
+        botonAlisar = new javax.swing.JCheckBox();
+        botonTransparencia = new javax.swing.JCheckBox();
+        botonGrosor = new javax.swing.JSpinner();
+        PanelCentral = new javax.swing.JPanel();
+        escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem3 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        ventanaInterna1.setClosable(true);
-        ventanaInterna1.setIconifiable(true);
-        ventanaInterna1.setMaximizable(true);
-        ventanaInterna1.setResizable(true);
-        ventanaInterna1.setVisible(true);
-
-        javax.swing.GroupLayout lienzo2D1Layout = new javax.swing.GroupLayout(lienzo2D1);
-        lienzo2D1.setLayout(lienzo2D1Layout);
-        lienzo2D1Layout.setHorizontalGroup(
-            lienzo2D1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 415, Short.MAX_VALUE)
-        );
-        lienzo2D1Layout.setVerticalGroup(
-            lienzo2D1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 275, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout ventanaInterna1Layout = new javax.swing.GroupLayout(ventanaInterna1.getContentPane());
-        ventanaInterna1.getContentPane().setLayout(ventanaInterna1Layout);
-        ventanaInterna1Layout.setHorizontalGroup(
-            ventanaInterna1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lienzo2D1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        ventanaInterna1Layout.setVerticalGroup(
-            ventanaInterna1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lienzo2D1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jDesktopPane1.setLayer(ventanaInterna1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(ventanaInterna1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(515, Short.MAX_VALUE))
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(ventanaInterna1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jDesktopPane1, java.awt.BorderLayout.CENTER);
-
         jToolBar2.setRollover(true);
 
-        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/lapiz.png"))); // NOI18N
-        jToggleButton1.setFocusable(false);
-        jToggleButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jToggleButton1);
+        botonLapiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/lapiz.png"))); // NOI18N
+        botonLapiz.setFocusable(false);
+        botonLapiz.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonLapiz.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonLapiz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonLapizActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(botonLapiz);
 
-        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/linea.png"))); // NOI18N
-        jToggleButton2.setFocusable(false);
-        jToggleButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jToggleButton2);
+        botonLinea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/linea.png"))); // NOI18N
+        botonLinea.setFocusable(false);
+        botonLinea.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonLinea.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonLinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonLineaActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(botonLinea);
 
-        jToggleButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rectangulo.png"))); // NOI18N
-        jToggleButton3.setFocusable(false);
-        jToggleButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jToggleButton3);
+        botonRectangulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rectangulo.png"))); // NOI18N
+        botonRectangulo.setFocusable(false);
+        botonRectangulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonRectangulo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonRectangulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRectanguloActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(botonRectangulo);
 
-        jToggleButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/elipse.png"))); // NOI18N
-        jToggleButton4.setFocusable(false);
-        jToggleButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jToggleButton4);
+        botonOvalo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/elipse.png"))); // NOI18N
+        botonOvalo.setFocusable(false);
+        botonOvalo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonOvalo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonOvalo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonOvaloActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(botonOvalo);
 
-        jToggleButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pera.png"))); // NOI18N
-        jToggleButton5.setFocusable(false);
-        jToggleButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jToggleButton5);
+        botonPera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pera.png"))); // NOI18N
+        botonPera.setFocusable(false);
+        botonPera.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonPera.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonPera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPeraActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(botonPera);
 
         getContentPane().add(jToolBar2, java.awt.BorderLayout.PAGE_START);
 
@@ -148,98 +135,171 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(etiquetaHerramientaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+            .addComponent(etiquetaHerramientaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
         );
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-
-        jButton3.setBackground(new java.awt.Color(255, 255, 0));
-
-        jButton4.setBackground(new java.awt.Color(255, 0, 0));
-
-        jButton5.setBackground(new java.awt.Color(0, 255, 0));
-
-        jButton6.setBackground(new java.awt.Color(51, 153, 255));
-
-        jCheckBox1.setText("Relleno");
-
-        jCheckBox2.setText("Mover");
-
-        jCheckBox3.setText("Alisar");
-
-        jCheckBox4.setText("Transparencia");
-        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+        colorNegro.setBackground(new java.awt.Color(0, 0, 0));
+        colorNegro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox4ActionPerformed(evt);
+                colorNegroActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        colorBlanco.setBackground(new java.awt.Color(255, 255, 255));
+        colorBlanco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorBlancoActionPerformed(evt);
+            }
+        });
+
+        colorAmarillo.setBackground(new java.awt.Color(255, 255, 0));
+        colorAmarillo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorAmarilloActionPerformed(evt);
+            }
+        });
+
+        colorRojo.setBackground(new java.awt.Color(255, 0, 0));
+        colorRojo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorRojoActionPerformed(evt);
+            }
+        });
+
+        colorVerde.setBackground(new java.awt.Color(0, 255, 0));
+        colorVerde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorVerdeActionPerformed(evt);
+            }
+        });
+
+        colorAzul.setBackground(new java.awt.Color(51, 153, 255));
+        colorAzul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorAzulActionPerformed(evt);
+            }
+        });
+
+        botonRelleno.setText("Relleno");
+        botonRelleno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRellenoActionPerformed(evt);
+            }
+        });
+
+        botonEditar.setText("Editar");
+        botonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEditarActionPerformed(evt);
+            }
+        });
+
+        botonAlisar.setText("Alisar");
+        botonAlisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAlisarActionPerformed(evt);
+            }
+        });
+
+        botonTransparencia.setText("Transparencia");
+        botonTransparencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonTransparenciaActionPerformed(evt);
+            }
+        });
+
+        botonGrosor.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                botonGrosorStateChanged(evt);
+            }
+        });
+        botonGrosor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonGrosorMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelBotonesLayout = new javax.swing.GroupLayout(PanelBotones);
+        PanelBotones.setLayout(PanelBotonesLayout);
+        PanelBotonesLayout.setHorizontalGroup(
+            PanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(PanelBotonesLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(colorRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(colorNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                .addGroup(PanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(colorBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colorVerde, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                .addGroup(PanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(colorAmarillo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colorAzul, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                 .addGap(42, 42, 42)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2))
+                .addGroup(PanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonRelleno)
+                    .addComponent(botonEditar))
                 .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jCheckBox4)
+                .addGroup(PanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelBotonesLayout.createSequentialGroup()
+                        .addComponent(botonTransparencia)
                         .addGap(78, 78, 78)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox3))
+                        .addComponent(botonGrosor, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botonAlisar))
                 .addContainerGap(583, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        PanelBotonesLayout.setVerticalGroup(
+            PanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBotonesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox3))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(PanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(colorNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colorBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colorAmarillo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonRelleno)
+                    .addComponent(botonAlisar))
+                .addGroup(PanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelBotonesLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox4))
+                        .addGroup(PanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(colorRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(colorVerde, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(colorAzul, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonEditar)
+                            .addComponent(botonTransparencia))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBotonesLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonGrosor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
+        getContentPane().add(PanelBotones, java.awt.BorderLayout.PAGE_END);
+
+        PanelCentral.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1052, Short.MAX_VALUE)
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 537, Short.MAX_VALUE)
+        );
+
+        PanelCentral.add(escritorio, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(PanelCentral, java.awt.BorderLayout.CENTER);
 
         jMenu1.setText("Archivo");
 
@@ -265,25 +325,181 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edicion");
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("Ver barra de estado");
+        jMenu2.add(jCheckBoxMenuItem1);
+
+        jCheckBoxMenuItem3.setSelected(true);
+        jCheckBoxMenuItem3.setText("Ver barra de atriburos");
+        jMenu2.add(jCheckBoxMenuItem3);
+
+        jCheckBoxMenuItem2.setSelected(true);
+        jCheckBoxMenuItem2.setText("Ver barra de formas");
+        jMenu2.add(jCheckBoxMenuItem2);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
+    
+    
+    private void botonTransparenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTransparenciaActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        vi.getLienzo2D().setTransparencia(this.botonTransparencia.isSelected());
+        vi.getLienzo2D().setAtributos();
+    }//GEN-LAST:event_botonTransparenciaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        //Creamos nueva ventana interna
+        VentanaInterna vi = new VentanaInterna();
+        this.escritorio.add(vi);
+        vi.setVisible(true);
+        vi.addInternalFrameListener(new ManejadorVentanaInterna());
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void botonLapizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLapizActionPerformed
+        this.botonLapiz.setSelected(true);
+        VentanaInterna vi = (VentanaInterna)this.escritorio.getSelectedFrame();
+        if (vi != null)
+            vi.setHerramienta(Herramienta.LAPIZ);
+        
+        this.botonLinea.setSelected(false);
+        this.botonRectangulo.setSelected(false);
+        this.botonOvalo.setSelected(false);
+        this.botonPera.setSelected(false);
+        
+        this.herramientaActual = Herramienta.LAPIZ;
+        this.etiquetaHerramientaActual.setText("Ventana Principal: " + this.herramientaActual);
+    }//GEN-LAST:event_botonLapizActionPerformed
+
+    private void botonLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLineaActionPerformed
+        this.botonLinea.setSelected(true);
+        VentanaInterna vi = (VentanaInterna)this.escritorio.getSelectedFrame();
+        if (vi != null)
+            vi.setHerramienta(Herramienta.LINEA);
+        
+        this.botonLapiz.setSelected(false);
+        this.botonRectangulo.setSelected(false);
+        this.botonOvalo.setSelected(false);
+        this.botonPera.setSelected(false);
+        
+        this.herramientaActual = Herramienta.LINEA;
+        this.etiquetaHerramientaActual.setText("Ventana Principal: " + this.herramientaActual);
+    }//GEN-LAST:event_botonLineaActionPerformed
+
+    private void botonRectanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRectanguloActionPerformed
+        this.botonRectangulo.setSelected(true);
+        VentanaInterna vi = (VentanaInterna)this.escritorio.getSelectedFrame();
+        if (vi != null)
+            vi.setHerramienta(Herramienta.RECTANGULO);
+        
+        this.botonLapiz.setSelected(false);
+        this.botonLinea.setSelected(false);
+        this.botonOvalo.setSelected(false);
+        this.botonPera.setSelected(false);
+        
+        this.herramientaActual = Herramienta.RECTANGULO;
+        this.etiquetaHerramientaActual.setText("Ventana Principal: " + this.herramientaActual);
+    }//GEN-LAST:event_botonRectanguloActionPerformed
+
+    private void botonOvaloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOvaloActionPerformed
+        this.botonOvalo.setSelected(true);
+        VentanaInterna vi = (VentanaInterna)this.escritorio.getSelectedFrame();
+        if (vi != null)
+            vi.setHerramienta(Herramienta.OVALO);
+        
+        this.botonLapiz.setSelected(false);
+        this.botonLinea.setSelected(false);
+        this.botonRectangulo.setSelected(false);
+        this.botonPera.setSelected(false);
+        
+        this.herramientaActual = Herramienta.OVALO;
+        this.etiquetaHerramientaActual.setText("Ventana Principal: " + this.herramientaActual);
+    }//GEN-LAST:event_botonOvaloActionPerformed
+
+    private void botonPeraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPeraActionPerformed
+        this.botonPera.setSelected(true);
+        VentanaInterna vi = (VentanaInterna)this.escritorio.getSelectedFrame();
+        if (vi != null)
+            vi.setHerramienta(Herramienta.PERA);
+        
+        this.botonLapiz.setSelected(false);
+        this.botonLinea.setSelected(false);
+        this.botonRectangulo.setSelected(false);
+        this.botonOvalo.setSelected(false);
+        
+        this.herramientaActual = Herramienta.PERA;
+        this.etiquetaHerramientaActual.setText("Ventana Principal: " + this.herramientaActual);
+    }//GEN-LAST:event_botonPeraActionPerformed
+
+    private void botonRellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRellenoActionPerformed
+        VentanaInterna vi = (VentanaInterna)this.escritorio.getSelectedFrame();
+        vi.getLienzo2D().setRelleno(this.botonRelleno.isSelected());
+        //vi.addInternalFrameListener(new ManejadorVentanaInterna());
+    }//GEN-LAST:event_botonRellenoActionPerformed
+
+    private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
+        VentanaInterna vi = (VentanaInterna)this.escritorio.getSelectedFrame();
+        vi.getLienzo2D().setEditar(this.botonEditar.isSelected());
+    }//GEN-LAST:event_botonEditarActionPerformed
+
+    private void colorNegroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorNegroActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        vi.getLienzo2D().setColor(Color.BLACK);
+    }//GEN-LAST:event_colorNegroActionPerformed
+
+    private void colorBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorBlancoActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        vi.getLienzo2D().setColor(Color.WHITE);
+    }//GEN-LAST:event_colorBlancoActionPerformed
+
+    private void colorAmarilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorAmarilloActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        vi.getLienzo2D().setColor(Color.YELLOW);
+    }//GEN-LAST:event_colorAmarilloActionPerformed
+
+    private void colorRojoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorRojoActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        vi.getLienzo2D().setColor(Color.RED);
+    }//GEN-LAST:event_colorRojoActionPerformed
+
+    private void colorVerdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorVerdeActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        vi.getLienzo2D().setColor(Color.GREEN);
+    }//GEN-LAST:event_colorVerdeActionPerformed
+
+    private void colorAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorAzulActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        vi.getLienzo2D().setColor(Color.BLUE);
+    }//GEN-LAST:event_colorAzulActionPerformed
+
+    private void botonAlisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAlisarActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        vi.getLienzo2D().setAlisar(this.botonAlisar.isSelected());
+        vi.getLienzo2D().setAtributos();
+    }//GEN-LAST:event_botonAlisarActionPerformed
+
+    private void botonGrosorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGrosorMouseClicked
+        //System.out.println("Grosor modificado");
+    }//GEN-LAST:event_botonGrosorMouseClicked
+
+    private void botonGrosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_botonGrosorStateChanged
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        vi.getLienzo2D().setGrosor((int)this.botonGrosor.getValue());
+        vi.getLienzo2D().setAtributos();
+        System.out.println("Grosor: " + this.botonGrosor.getValue());
+    }//GEN-LAST:event_botonGrosorStateChanged
+
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -319,20 +535,47 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
+    private class ManejadorVentanaInterna extends InternalFrameAdapter {
+        @Override
+        public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            System.out.println("Ventana seleccionada");
+            VentanaInterna vi = (VentanaInterna) evt.getInternalFrame();
+            vi.getLienzo2D().setHerramienta(herramientaActual);
+            
+            botonRelleno.setSelected(vi.getLienzo2D().isRelleno());
+            botonAlisar.setSelected(vi.getLienzo2D().isAlisar());
+            botonEditar.setSelected(vi.getLienzo2D().isEditar());
+            botonTransparencia.setSelected(vi.getLienzo2D().isTransparencia());
+        }
+    }
+    
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel PanelBotones;
+    private javax.swing.JPanel PanelCentral;
+    private javax.swing.JCheckBox botonAlisar;
+    private javax.swing.JCheckBox botonEditar;
+    private javax.swing.JSpinner botonGrosor;
+    private javax.swing.JToggleButton botonLapiz;
+    private javax.swing.JToggleButton botonLinea;
+    private javax.swing.JToggleButton botonOvalo;
+    private javax.swing.JToggleButton botonPera;
+    private javax.swing.JToggleButton botonRectangulo;
+    private javax.swing.JCheckBox botonRelleno;
+    private javax.swing.JCheckBox botonTransparencia;
+    private javax.swing.JButton colorAmarillo;
+    private javax.swing.JButton colorAzul;
+    private javax.swing.JButton colorBlanco;
+    private javax.swing.JButton colorNegro;
+    private javax.swing.JButton colorRojo;
+    private javax.swing.JButton colorVerde;
+    private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JLabel etiquetaHerramientaActual;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -340,15 +583,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToolBar jToolBar2;
-    private smm_p7.Lienzo2D lienzo2D1;
-    private smm_p7.VentanaInterna ventanaInterna1;
     // End of variables declaration//GEN-END:variables
 }
