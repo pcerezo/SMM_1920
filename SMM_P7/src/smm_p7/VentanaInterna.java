@@ -8,6 +8,7 @@ package smm_p7;
 
 import SM.PCS.Graficos.Herramienta;
 import SM.PCS.IU.Lienzo2D;
+import SMM.PCS.Eventos.LienzoAdapter;
 
 
 /**
@@ -19,6 +20,9 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
     /** Creates new form VentanaInterna */
     public VentanaInterna() {
         initComponents();
+        
+        LienzoAdapter manejador = new LienzoAdapter();
+        this.getLienzo2D().addLienzoAdapter(manejador);
     }
 
     
