@@ -12,6 +12,7 @@ import SM.PCS.Graficos.Ovalo;
 import SM.PCS.Graficos.Pera;
 import SM.PCS.Graficos.Punto;
 import SM.PCS.Graficos.Tipo;
+import SMM.PCS.Eventos.LienzoAdapter;
 import SMM.PCS.Eventos.LienzoEvent;
 import SMM.PCS.Eventos.LienzoListener;
 import java.awt.AlphaComposite;
@@ -23,6 +24,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
  * @author pabloc
  */
 public class Lienzo2D extends javax.swing.JPanel {
-    ArrayList<LienzoListener>lienzoEventListeners = new ArrayList();
+    ArrayList<LienzoAdapter>lienzoEventListeners = new ArrayList();
     
     private Color color = Color.black;
     private boolean relleno, alisar, editar, transparencia;
@@ -51,7 +53,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     private Composite comp;
     private RenderingHints rh;
     
-    public void addLienzoListener(LienzoListener listener) {
+    public void addLienzoAdapter(LienzoAdapter listener) {
         if (listener != null) {
             lienzoEventListeners.add(listener);
         }
@@ -196,9 +198,13 @@ public class Lienzo2D extends javax.swing.JPanel {
         System.out.println("Grosor cambiado a " + this.grosor);
     }
     
+    public int getGrosor() {
+        return this.grosor;
+    }
+    
     public void setHerramienta(Herramienta h) {
         this.herramienta = h;
-        System.out.println("Cambio a " + this.herramienta);
+        
     }
     
     public Herramienta getHerramienta() {
@@ -241,8 +247,11 @@ public class Lienzo2D extends javax.swing.JPanel {
     public void createShape() {
         if (this.editar) {
             this.figuraActual = this.getFiguraSeleccionada(p);
-            this.pAnterior = new Point(this.figuraActual.getPos());
-            System.out.println("pAnterior pressed: " + pAnterior.x + ", " + pAnterior.y);
+ 
+            if (this.figuraActual != null) { //Si seleccionamos algo que es una figura
+                this.pAnterior = new Point(this.figuraActual.getPos());
+                System.out.println("pAnterior pressed: " + pAnterior.x + ", " + pAnterior.y);
+            }
         }
         else {
             switch(this.herramienta) {
@@ -250,36 +259,44 @@ public class Lienzo2D extends javax.swing.JPanel {
                     Punto punto = new Punto(p.x, p.y);
                     //this.figuraActual = new Figura(punto, true, Tipo.PUNTO);
                     this.figuras.add(new Figura(punto, true, Tipo.PUNTO));//, this.getColor()));
+                    this.notifyFiguraAddedEvent(new LienzoEvent(this, punto, this.color));
                     break;
                 case LINEA:
                     Linea linea = new Linea(p, p);
                     //this.figuraActual = new Figura(linea, false, Tipo.LINEA);
                     this.figuras.add(new Figura(linea, false, Tipo.LINEA));//, this.getColor()));
+                    this.notifyFiguraAddedEvent(new LienzoEvent(this, linea, this.color));
                     break;
                 case RECTANGULO:
                     Rectangle rec = new Rectangle(p.x, p.y, 0, 0);
                     //this.figuraActual = new Figura(rec, this.isRelleno(), Tipo.RECTANGULO);
                     this.figuras.add(new Figura(rec, this.isRelleno(), Tipo.RECTANGULO));//, this.getColor()));
+                    this.notifyFiguraAddedEvent(new LienzoEvent(this, rec, this.color));
                     break;
                 case OVALO:
                     Ovalo ovalo = new Ovalo(p.x, p.y, 0, 0);
                     //this.figuraActual = new Figura(ovalo, this.isRelleno(), Tipo.OVALO);
                     this.figuras.add(new Figura(ovalo, this.isRelleno(), Tipo.OVALO));//, this.getColor()));
+                    this.notifyFiguraAddedEvent(new LienzoEvent(this, ovalo, this.color));
                     break;
                 case PERA:
                     Pera pera = new Pera(p.x, p.y, 100, 140);
                     this.figuras.add(new Figura(pera, this.isRelleno(), Tipo.PERA));//, this.getColor()));
+                    this.notifyFiguraAddedEvent(new LienzoEvent(this, pera, this.color));
             }
+            
         }
     }
     
     public void updateShape(){ //La figura se actualiza
         if (this.isEditar()) {
             //Ahora movemos la figura seleccionada
-            if (this.figuraActual != null){
+            if (this.figuraActual != null && this.pAnterior != null){
                 this.figuraActual.setLocation(pAnterior, p2);
                 //System.out.println("Moviendo una figura de tipo " + this.figuraActual.getTipo()); //Comprobar que la detecta
+                this.notifyPropertyChangeEvent(new LienzoEvent(this, this.figuraActual.getFigura(), this.color));
             }
+           
         }
         else {
             if (this.figuras.size() > 0) {

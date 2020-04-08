@@ -10,9 +10,17 @@ package SMM.PCS.Eventos;
  * @author pabloc
  */
 public class LienzoAdapter implements LienzoListener{
-    @Override
-    public void figuraAdded(LienzoEvent evt) {}
+    public LienzoAdapter() {
+        super();
+    }
     
     @Override
-    public void propertyChange(LienzoEvent evt) {}
+    public void figuraAdded(LienzoEvent evt) {
+        System.out.println("Se ha añadido una nueva figura.");
+    }
+    
+    @Override
+    public void propertyChange(LienzoEvent evt) {
+        System.out.println("Figura alterada.");
+    }
 }

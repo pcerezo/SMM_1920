@@ -81,12 +81,12 @@ public class Figura { //Clase que distingue los distintos tipos de figuras y en 
         else if (this.getFigura() instanceof Ovalo) {    
             int dx = (int) (pnew.x - pAnterior.x);
             int dy = (int) (pnew.y - pAnterior.y);
-            System.out.println("dx: " + dx);
+            /*System.out.println("dx: " + dx);
             System.out.println("dy: " + dy);
             System.out.println("x antes: " + pAnterior.x);
             System.out.println("y antes: " + pAnterior.y);
             System.out.println("pnew.x: " + pnew.x);
-            System.out.println("pnew.y: " + pnew.y);
+            System.out.println("pnew.y: " + pnew.y);*/
             ((Ovalo) this.figura).setLocation(pnew);
         }
     }
