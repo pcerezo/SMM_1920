@@ -67,27 +67,21 @@ public class Figura { //Clase que distingue los distintos tipos de figuras y en 
         return this.figura.contains(paux);
     }
     
-    public void setLocation(Point pAnterior, Point pnew) {
+    public void setLocation(Point pnew, int dx, int dy) {
+        Point pAux = new Point(pnew.x-dx, pnew.y -dy);
         if (this.getFigura() instanceof Linea) {
             
-            int ancho = (int) pnew.getX() - (int) ((Linea) this.figura).getX1();
-            int alto = (int) pnew.getY() - (int) ((Linea) this.figura).getY1();
-
-            ((Linea) this.figura).setLine(pnew.getX(), pnew.getY(), ((Linea) this.figura).getX2()+ancho, ((Linea) this.figura).getY2()+alto);
+            int ancho = (int) ((Linea) this.figura).getX1() - (int) ((Linea) this.figura).getX2();
+            int alto = (int) ((Linea) this.figura).getY1() - (int) ((Linea) this.figura).getY2();
+            
+            System.out.println("ancho línea: " + ancho + ", alto línea: " + alto);
+            ((Linea) this.figura).setLine(pAux.x, pAux.y, ((Linea) this.figura).getX2(), ((Linea) this.figura).getY2());
         }
         else if(this.getFigura() instanceof Rectangle){
-            ((Rectangle) this.figura).setLocation((Point) pnew);
+            ((Rectangle) this.figura).setLocation(pAux);
         }
         else if (this.getFigura() instanceof Ovalo) {    
-            int dx = (int) (pnew.x - pAnterior.x);
-            int dy = (int) (pnew.y - pAnterior.y);
-            /*System.out.println("dx: " + dx);
-            System.out.println("dy: " + dy);
-            System.out.println("x antes: " + pAnterior.x);
-            System.out.println("y antes: " + pAnterior.y);
-            System.out.println("pnew.x: " + pnew.x);
-            System.out.println("pnew.y: " + pnew.y);*/
-            ((Ovalo) this.figura).setLocation(pnew);
+            ((Ovalo) this.figura).setLocation(pAux);
         }
     }
     
@@ -95,7 +89,7 @@ public class Figura { //Clase que distingue los distintos tipos de figuras y en 
         int x, y;
         Point pos = null;
         if (this.getFigura() instanceof Linea) {
-            pos = new Point((int)((Linea) this.figura).getX1(), (int)((Linea) this.figura).getX2());
+            pos = new Point((int)((Linea) this.figura).getX1(), (int)((Linea) this.figura).getY1());
         }
         else if (this.getFigura() instanceof Rectangle) {
             pos = new Point((int)((Rectangle) this.figura).getX(), (int) ((Rectangle) this.figura).getY());

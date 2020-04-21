@@ -25,8 +25,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.Dimension;
 import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -35,23 +37,30 @@ import java.util.ArrayList;
  */
 public class Lienzo2D extends javax.swing.JPanel {
     ArrayList<LienzoAdapter>lienzoEventListeners = new ArrayList();
-    
-    private Color color = Color.black;
+    //Opciones para editar las figuras
     private boolean relleno, alisar, editar, transparencia;
-    private Point pAnterior;
     private int grosor;
+    //Atributos de las figuras
+    private Color color = Color.black;
     private Stroke trazo;
-    private Point p = new Point (-10, -10);
-    private Point p2 = new Point (-10, -10);
-    private Herramienta herramienta = Herramienta.LAPIZ; //Por defecto, lápiz
-    private ArrayList<Figura> figuras;
-    private Figura figuraActual;
     private String tipoFuente;
+    private Composite comp;
+    private RenderingHints rh;
+    
+    //Puntos importantes para dibujar y modificar figuras
+    private Point pOrigen; //Punto origen desde donde se dibuja la figura
+    private int dx, dy; //Ancho y alto desde donde se clica hasta pOrigen
+    private Point p = new Point (-10, -10); //Punto en el que se presiona
+    private Point p2 = new Point (-10, -10); //Punto actual por donde se hace el drag
+    
+    private Herramienta herramienta = Herramienta.LAPIZ; //Por defecto, lápiz
+    private ArrayList<Figura> figuras; //Las figuras que hemos dibujado
+    private Figura figuraActual; //Figura que se está dibujando o alterando
+    
     private boolean ventanaActiva;
     private Ellipse2D ventana;
     
-    private Composite comp;
-    private RenderingHints rh;
+    private BufferedImage fondo; //Imagen de fondo
     
     public void addLienzoAdapter(LienzoAdapter listener) {
         if (listener != null) {
@@ -87,7 +96,7 @@ public class Lienzo2D extends javax.swing.JPanel {
         this.trazo = new BasicStroke(this.grosor);
         this.tipoFuente = "aakar";
         this.ventana = new Ellipse2D.Float(0,0,500,500);
-        this.pAnterior = null;
+        this.pOrigen = null;
         this.comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
         this.rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
     }
@@ -97,6 +106,11 @@ public class Lienzo2D extends javax.swing.JPanel {
         //Se sobrecarga
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
+        //Lo primero: dibujar la imagen
+        //if (this.fondo!= null) g2d.drawImage(this.fondo, 0, 0, this);
+        //else {
+            g2d.drawImage(this.fondo, 0, 0, null);
+        //}
         
         g2d.setComposite(this.comp);
         g2d.setColor(this.color);
@@ -147,6 +161,33 @@ public class Lienzo2D extends javax.swing.JPanel {
         this.trazo = new BasicStroke(this.grosor);
         
         this.repaint();
+    }
+    
+    public void setFondo(BufferedImage img) {
+        this.fondo = img;
+        
+        /*if (this.fondo != null) {
+            this.setPreferredSize(new Dimension(this.fondo.getWidth(), this.fondo.getHeight()));
+        }*/
+    }
+    
+    public BufferedImage getFondo(boolean drawVector) {
+        if(drawVector){
+            //Creamos el objeto imagen que se va a guardar con las dimensiones correspondientes
+            BufferedImage imgout = new BufferedImage(this.fondo.getWidth(), this.fondo.getHeight(), this.fondo.getType());
+            
+            //Obtenemos los gráficos de dicha imagen sobre los que pintamos
+            Graphics2D g2dImagen = imgout.createGraphics();
+            //Si la imagen no es nula, pintamos sobre ella llamando al método paint()
+            if (this.fondo != null) {
+                this.paint(g2dImagen);
+                
+                return imgout;
+            }
+            return null;
+        }
+        else
+            return this.fondo;
     }
     
     public Color getColor() {
@@ -241,7 +282,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     }
     
     public void released(java.awt.event.MouseEvent evt) {
-        this.pAnterior = null;
+        this.pOrigen = null;
     }
     
     public void createShape() {
@@ -249,8 +290,11 @@ public class Lienzo2D extends javax.swing.JPanel {
             this.figuraActual = this.getFiguraSeleccionada(p);
  
             if (this.figuraActual != null) { //Si seleccionamos algo que es una figura
-                this.pAnterior = new Point(this.figuraActual.getPos());
-                System.out.println("pAnterior pressed: " + pAnterior.x + ", " + pAnterior.y);
+                this.pOrigen = new Point(this.figuraActual.getPos());
+                this.dx = this.p.x - this.pOrigen.x;
+                this.dy = this.p.y - this.pOrigen.y;
+                System.out.println("Ancho: " + dx + ", alto:" + dy);
+                
             }
         }
         else {
@@ -291,8 +335,8 @@ public class Lienzo2D extends javax.swing.JPanel {
     public void updateShape(){ //La figura se actualiza
         if (this.isEditar()) {
             //Ahora movemos la figura seleccionada
-            if (this.figuraActual != null && this.pAnterior != null){
-                this.figuraActual.setLocation(pAnterior, p2);
+            if (this.figuraActual != null && this.pOrigen != null){
+                this.figuraActual.setLocation(p2, this.dx, this.dy);
                 //System.out.println("Moviendo una figura de tipo " + this.figuraActual.getTipo()); //Comprobar que la detecta
                 this.notifyPropertyChangeEvent(new LienzoEvent(this, this.figuraActual.getFigura(), this.color));
             }

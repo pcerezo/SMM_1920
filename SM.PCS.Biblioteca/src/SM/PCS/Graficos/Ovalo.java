@@ -23,25 +23,10 @@ public class Ovalo extends Ellipse2D.Float{
     }
     
     public void setLocation(Point pnew) {
-        int dx = (int) (pnew.x - this.getX());
-        int dy = (int) (pnew.y - this.getY());
+        Point pFin = new Point((int)(pnew.x+this.width), (int)(pnew.y+this.height)); //El punto final
+        //Point pIni = new Point((int)this.x, (int)this.y);
         
-        
-        System.out.println("Antes x: " + this.x);
-        System.out.println("Antes y: " + this.y);
-        this.x = this.x + dx;
-        this.y = this.y + dy;
-        //System.out.println("dx: " + dx);
-        //System.out.println("dy: " + dy);
-        
-        System.out.println("Después x: " + this.x);
-        System.out.println("Después y: " + this.y);
-        
-        Point pFin = new Point((int)(this.x+this.width), (int)(this.y+this.height)); //El punto final
-        Point pIni = new Point((int)this.x, (int)this.y);
-        
-        this.setFrameFromDiagonal(pIni, pFin);
-        
+        this.setFrameFromDiagonal(pnew, pFin);  
     }
     /*public boolean contains(Point2D p){
         return this
