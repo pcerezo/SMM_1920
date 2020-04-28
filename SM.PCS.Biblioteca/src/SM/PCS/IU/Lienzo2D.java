@@ -107,10 +107,12 @@ public class Lienzo2D extends javax.swing.JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         //Lo primero: dibujar la imagen
-        //if (this.fondo!= null) g2d.drawImage(this.fondo, 0, 0, this);
-        //else {
-            g2d.drawImage(this.fondo, 0, 0, null);
-        //}
+        if (this.fondo!= null) g2d.drawImage(this.fondo, 0, 0, this);
+        else {
+            Point paux = new Point(0,0);
+            g2d.setColor(Color.WHITE);
+            g2d.fill(new Rectangle(paux, new Dimension(500, 500)));
+        }
         
         g2d.setComposite(this.comp);
         g2d.setColor(this.color);
@@ -188,6 +190,10 @@ public class Lienzo2D extends javax.swing.JPanel {
         }
         else
             return this.fondo;
+    }
+    
+    public BufferedImage getFondo() {
+        return this.fondo;
     }
     
     public Color getColor() {
