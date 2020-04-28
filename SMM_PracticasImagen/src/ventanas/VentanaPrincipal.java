@@ -45,7 +45,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.herramientaActual = Herramienta.LAPIZ;
         this.etiquetaHerramientaActual.setText("Ventana Principal: " + Herramienta.LAPIZ); // Por defecto el lápiz al principio
         //this.deslizador = new JSlider();
-        //this.deslizador.setValue(50);
+        this.deslizador.setValue(50);
         System.out.println("deslizador: " + this.deslizador.getValue());
     }
    
@@ -256,11 +256,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         deslizador.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 deslizadorStateChanged(evt);
-            }
-        });
-        deslizador.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                deslizadorMouseDragged(evt);
             }
         });
         deslizador.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -495,7 +490,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 if (resp == JFileChooser.APPROVE_OPTION) {
                     try{
                         File f = dlg.getSelectedFile();
-                        ImageIO.write(img, "jpg", f);
+                        String extension = getExtension(f.getName());
+                        ImageIO.write(img, extension, f);
+                        System.out.println("Guardada imagen con extensión " + extension);
                         vi.setTitle(f.getName());
                     }
                     catch (Exception e) {
@@ -508,6 +505,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_guardarDibujoActionPerformed
 
+    private String getExtension(String nombreArchivo) {        
+        if (nombreArchivo.endsWith(".jpg")){
+            System.out.println("Detectada extensión jpg");
+            return "jpg";
+        }
+        else if (nombreArchivo.endsWith(".png")) {
+            System.out.println("Detectada extensión png");
+            return "png";
+        }
+        else if (nombreArchivo.endsWith(".tiff")) {
+            System.out.println("Detectada extensión tiff");
+            return "tiff";
+        }
+            
+        return null;
+    }
+            
+            
     private void botonLapizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLapizActionPerformed
         this.botonLapiz.setSelected(true);
         VentanaInterna vi = (VentanaInterna)this.escritorio.getSelectedFrame();
@@ -657,7 +672,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void abrirDibujoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirDibujoActionPerformed
         JFileChooser dlg = new JFileChooser();
-        FileFilter filter = new FileNameExtensionFilter("JPEG file", "jpg", "jpeg");
+        FileFilter filter = new FileNameExtensionFilter("JPEG file", "jpg", "jpeg", "png");
         dlg.addChoosableFileFilter(filter);
         int resp = dlg.showOpenDialog(this);
         
@@ -673,11 +688,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 vi.setTitle(f.getName());
                 this.setOpcionesDefault();
                 
-                //Al abrir una imagen guardamos su estado original
-                ColorModel cm = vi.getLienzo2D().getFondo().getColorModel();
-                WritableRaster raster = vi.getLienzo2D().getFondo().copyData(null);
-                boolean alfaPre = vi.getLienzo2D().getFondo().isAlphaPremultiplied();
-                this.imagenOriginal = new BufferedImage(cm, raster, alfaPre, null);
             }
             catch(Exception e) {
                 //Creamos una ventana de diálogo  donde indicamos el error
@@ -740,12 +750,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_convolveOpActionPerformed
 
-    private void deslizadorMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deslizadorMouseDragged
-        
-    }//GEN-LAST:event_deslizadorMouseDragged
-
     private void deslizadorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_deslizadorFocusGained
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
         
+        ColorModel cm = vi.getLienzo2D().getFondo(false).getColorModel();
+        WritableRaster raster = vi.getLienzo2D().getFondo(false).copyData(null);
+        boolean alfaPre = vi.getLienzo2D().getFondo(false).isAlphaPremultiplied();
+        this.imagenOriginal = new BufferedImage(cm, raster, alfaPre, null);
     }//GEN-LAST:event_deslizadorFocusGained
 
     private void deslizadorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_deslizadorFocusLost
@@ -765,10 +776,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             boolean alfaPre = vi.getLienzo2D().getFondo().isAlphaPremultiplied();
             this.imagenOriginal = new BufferedImage(cm, raster, alfaPre, null);*/
             
-            RescaleOp rop = new RescaleOp(1.0F, this.deslizador.getValue(), null); //(contraste, brillo, renderizado)
-            BufferedImage imgaux = rop.filter(this.imagenOriginal, null);
+            RescaleOp rop = new RescaleOp(1.0F, this.deslizador.getValue()-50, null); //(contraste, brillo, renderizado)
             
-            vi.getLienzo2D().setFondo(imgaux);
+            rop.filter(this.imagenOriginal, vi.getLienzo2D().getFondo(false));
+            
             vi.getLienzo2D().repaint();
            
             System.out.println("Brillo: " + this.deslizador.getValue());
