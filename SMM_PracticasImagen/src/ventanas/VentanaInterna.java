@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package smm_p7;
+package ventanas;
 
 import SM.PCS.Graficos.Herramienta;
 import SM.PCS.IU.Lienzo2D;

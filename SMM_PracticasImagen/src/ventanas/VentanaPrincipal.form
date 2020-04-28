@@ -4,7 +4,7 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="archivo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Archivo"/>
           </Properties>
@@ -35,7 +35,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="edicion">
           <Properties>
             <Property name="text" type="java.lang.String" value="Edicion"/>
           </Properties>
@@ -65,6 +65,29 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verBarraFormasActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="imagen">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Imagen"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="recaleOp">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="RescaleOp"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recaleOpActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="convolveOp">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="ConvolveOp"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="convolveOpActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -208,44 +231,64 @@
                   </Group>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="botonTransparencia" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                           <Component id="botonGrosor" min="-2" pref="43" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                          <Component id="deslizador" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="botonAlisar" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="botonAlisar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="213" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="580" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="listaFiltros" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="238" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="colorNegro" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="colorBlanco" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="colorAmarillo" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="botonRelleno" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="botonAlisar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="colorRojo" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="colorVerde" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="colorAzul" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="botonEditar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="botonTransparencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="colorNegro" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <Component id="colorBlanco" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <Component id="colorAmarillo" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <Component id="botonRelleno" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="botonAlisar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="botonGrosor" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="deslizador" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="colorRojo" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <Component id="colorVerde" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <Component id="colorAzul" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <Component id="botonEditar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="botonTransparencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="listaFiltros" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="barraEstado" min="-2" max="-2" attributes="0"/>
@@ -375,6 +418,43 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botonGrosorMouseClicked"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JSlider" name="deslizador">
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="deslizadorStateChanged"/>
+            <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="deslizadorMouseDragged"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="deslizadorFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="deslizadorFocusLost"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="listaFiltros">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="5">
+                <StringItem index="0" value="Media"/>
+                <StringItem index="1" value="Binomial"/>
+                <StringItem index="2" value="Enfoque"/>
+                <StringItem index="3" value="Relieve"/>
+                <StringItem index="4" value="Laplace"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listaFiltrosActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Brillo:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Filtros:"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="PanelCentral">
@@ -401,7 +481,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="537" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="534" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
