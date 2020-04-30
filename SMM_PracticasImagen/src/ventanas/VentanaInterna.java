@@ -9,6 +9,10 @@ package ventanas;
 import SM.PCS.Graficos.Herramienta;
 import SM.PCS.IU.Lienzo2D;
 import SMM.PCS.Eventos.LienzoAdapter;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
+import java.awt.peer.MouseInfoPeer;
 
 
 /**
@@ -17,12 +21,16 @@ import SMM.PCS.Eventos.LienzoAdapter;
  */
 public class VentanaInterna extends javax.swing.JInternalFrame {
 
+    private Point puntero; //Coordenadas del ratón en la ventana interna
+    
     /** Creates new form VentanaInterna */
     public VentanaInterna() {
         initComponents();
         
         LienzoAdapter manejador = new LienzoAdapter();
         this.getLienzo2D().addLienzoAdapter(manejador);
+        
+        this.puntero = new Point();
     }
 
     
@@ -68,6 +76,9 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
         });
 
         lienzo2D.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lienzo2DMouseMoved(evt);
+            }
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 lienzo2DMouseDragged(evt);
             }
@@ -115,6 +126,16 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
         this.lienzo2D.released(evt);
     }//GEN-LAST:event_lienzo2DMouseReleased
 
+    private void lienzo2DMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lienzo2DMouseMoved
+        MouseInfo mouse;
+        this.puntero = MouseInfo.getPointerInfo().getLocation();
+        //this.puntero = evt.getLocationOnScreen();
+    }//GEN-LAST:event_lienzo2DMouseMoved
+
+    public Point getCoordenadasPuntero() {
+        return this.puntero;
+    }
+    
     public Lienzo2D getLienzo2D() {
         return lienzo2D;
     }

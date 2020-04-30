@@ -8,7 +8,11 @@ package ventanas;
 import SM.PCS.Graficos.Herramienta;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.FocusEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.ConvolveOp;
@@ -22,6 +26,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
+import javax.swing.JTextField;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -39,14 +44,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     private Herramienta herramientaActual;
     private BufferedImage imagenOriginal;
+    private Point puntero;
+    private boolean rellenoSelected, transparenciaSelected, alisarSelected, seleccionarSelected;
     
     public VentanaPrincipal() {
         initComponents();
+        this.puntero = new Point(0,0);
         this.herramientaActual = Herramienta.LAPIZ;
+        this.coordenadasPuntero.setText("Coordenadas del puntero: (" + this.puntero.x + ", " + this.puntero.y + ")");
         this.etiquetaHerramientaActual.setText("Ventana Principal: " + Herramienta.LAPIZ); // Por defecto el lápiz al principio
         //this.deslizador = new JSlider();
         this.deslizador.setValue(50);
         System.out.println("deslizador: " + this.deslizador.getValue());
+        
+        rellenoSelected = transparenciaSelected = alisarSelected = seleccionarSelected = false;
+//        this.rellenar.setSelected(false);
+//        this.transparencia.setSelected(false);
+//        this.alisar.setSelected(false);
+//        this.editar.setSelected(false);
     }
    
     /**
@@ -59,14 +74,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         barraFormas = new javax.swing.JToolBar();
+        nuevo = new javax.swing.JButton();
+        abrir = new javax.swing.JButton();
+        guardar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
         botonLapiz = new javax.swing.JToggleButton();
         botonLinea = new javax.swing.JToggleButton();
         botonRectangulo = new javax.swing.JToggleButton();
         botonOvalo = new javax.swing.JToggleButton();
         botonPera = new javax.swing.JToggleButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        Color colores[] = {Color.BLACK, Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.WHITE};
+        listaColores = new javax.swing.JComboBox<>(colores);
+        rellenar = new javax.swing.JToggleButton();
+        transparencia = new javax.swing.JToggleButton();
+        alisar = new javax.swing.JToggleButton();
+        editar = new javax.swing.JToggleButton();
         barraAtributos = new javax.swing.JPanel();
         barraEstado = new javax.swing.JPanel();
         etiquetaHerramientaActual = new javax.swing.JLabel();
+        coordenadasPuntero = new javax.swing.JLabel();
         colorNegro = new javax.swing.JButton();
         colorBlanco = new javax.swing.JButton();
         colorAmarillo = new javax.swing.JButton();
@@ -101,7 +128,41 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         barraFormas.setRollover(true);
 
-        botonLapiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/lapiz.png"))); // NOI18N
+        nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevo.png"))); // NOI18N
+        nuevo.setFocusable(false);
+        nuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        nuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoActionPerformed(evt);
+            }
+        });
+        barraFormas.add(nuevo);
+
+        abrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/abrir.png"))); // NOI18N
+        abrir.setFocusable(false);
+        abrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        abrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        abrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirActionPerformed(evt);
+            }
+        });
+        barraFormas.add(abrir);
+
+        guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
+        guardar.setFocusable(false);
+        guardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        guardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarActionPerformed(evt);
+            }
+        });
+        barraFormas.add(guardar);
+        barraFormas.add(jSeparator1);
+
+        botonLapiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/punto.png"))); // NOI18N
         botonLapiz.setFocusable(false);
         botonLapiz.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonLapiz.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -155,6 +216,60 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         barraFormas.add(botonPera);
+        barraFormas.add(jSeparator2);
+
+        listaColores.setMaximumSize(new java.awt.Dimension(64, 23));
+        listaColores.setRenderer(new ColorCellRender());
+        listaColores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaColoresActionPerformed(evt);
+            }
+        });
+        barraFormas.add(listaColores);
+
+        rellenar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rellenar.png"))); // NOI18N
+        rellenar.setFocusable(false);
+        rellenar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        rellenar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        rellenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rellenarActionPerformed(evt);
+            }
+        });
+        barraFormas.add(rellenar);
+
+        transparencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/transparencia.png"))); // NOI18N
+        transparencia.setFocusable(false);
+        transparencia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        transparencia.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        transparencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transparenciaActionPerformed(evt);
+            }
+        });
+        barraFormas.add(transparencia);
+
+        alisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/alisar.png"))); // NOI18N
+        alisar.setFocusable(false);
+        alisar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        alisar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        alisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alisarActionPerformed(evt);
+            }
+        });
+        barraFormas.add(alisar);
+
+        editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/seleccion.png"))); // NOI18N
+        editar.setFocusable(false);
+        editar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        editar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarActionPerformed(evt);
+            }
+        });
+        barraFormas.add(editar);
 
         getContentPane().add(barraFormas, java.awt.BorderLayout.PAGE_START);
 
@@ -165,11 +280,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(barraEstadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(etiquetaHerramientaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coordenadasPuntero, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         barraEstadoLayout.setVerticalGroup(
             barraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(etiquetaHerramientaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+            .addComponent(coordenadasPuntero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         colorNegro.setBackground(new java.awt.Color(0, 0, 0));
@@ -356,6 +474,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         PanelCentral.setLayout(new java.awt.BorderLayout());
 
+        escritorio.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                escritorioMouseMoved(evt);
+            }
+        });
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
@@ -468,11 +592,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.escritorio.add(vi);
         
         vi.addInternalFrameListener(new ManejadorVentanaInterna());
+        vi.getLienzo2D().addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent me) {
+                puntero.x = me.getX();
+                puntero.y = me.getY();
+                coordenadasPuntero.setText("Coordenadas del puntero: (" + puntero.x + ", " + puntero.y + ")");
+            }
+        });
+            
+
         BufferedImage img;
         img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
         Graphics g = img.getGraphics();
         //vi.getLienzo2D().setFondo(img);
-        vi.getLienzo2D().paint(g); //Llamar a función especial que dibuje como paint pero un rectángulo blanco
+        vi.getLienzo2D().paint(g); //Llamar a que dibuje como paint pero un rectángulo blanco
         //this.setOpcionesDefault();
         vi.setVisible(true);
     }//GEN-LAST:event_nuevaVentanaActionPerformed
@@ -680,6 +814,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             try {
                 File f = dlg.getSelectedFile();
                 BufferedImage img = ImageIO.read(f);
+                
+                //Creo una imagen con canal alfa con las dimensiones de las que he elegido
+                BufferedImage imgAlfa = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                Graphics g = imgAlfa.getGraphics();
+                
                 VentanaInterna vi = new VentanaInterna();
                 this.escritorio.add(vi);
                 vi.setVisible(true);
@@ -688,6 +827,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 vi.setTitle(f.getName());
                 this.setOpcionesDefault();
                 
+                vi.getLienzo2D().paint(g);
+                
+                vi.getLienzo2D().addMouseMotionListener(new MouseMotionAdapter() {
+                    @Override
+                    public void mouseMoved(MouseEvent me) {
+                        puntero.x = me.getX();
+                        puntero.y = me.getY();
+                        coordenadasPuntero.setText("Coordenadas del puntero: (" + puntero.x + ", " + puntero.y + ")");
+                    }
+                });
             }
             catch(Exception e) {
                 //Creamos una ventana de diálogo  donde indicamos el error
@@ -752,14 +901,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void deslizadorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_deslizadorFocusGained
         VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
-        
+                
+        //Copio la imagen tal cual
         ColorModel cm = vi.getLienzo2D().getFondo(false).getColorModel();
         WritableRaster raster = vi.getLienzo2D().getFondo(false).copyData(null);
         boolean alfaPre = vi.getLienzo2D().getFondo(false).isAlphaPremultiplied();
         this.imagenOriginal = new BufferedImage(cm, raster, alfaPre, null);
+        
+        //Paso los gráficos de la imagen inicio
+//        Graphics2D g2d = this.imagenOriginal.createGraphics();
+        
+        //Pinto sobre los gráficos de la imagen inicio
+ //       vi.getLienzo2D().paint(g2d);
+        
+        System.out.println("He pintado en la imagen");
+        //Borrar vector de figuras
     }//GEN-LAST:event_deslizadorFocusGained
 
     private void deslizadorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_deslizadorFocusLost
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        
+        //Graphics2D g2dImagen = this.imagenOriginal.createGraphics();
+        //vi.getLienzo2D().paint(g2dImagen);
         this.imagenOriginal = null;
         this.deslizador.setValue(0);
         System.out.println("Deslizador reseteado");
@@ -769,17 +932,34 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //Cada vez que se mueve el deslizador
         VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
         
-        if (vi != null && this.imagenOriginal != null) {
-            //Creamos copia de la imagen del lienzo para que no sea referencia
-            /*ColorModel cm = vi.getLienzo2D().getFondo().getColorModel();
-            WritableRaster raster = vi.getLienzo2D().getFondo().copyData(null);
-            boolean alfaPre = vi.getLienzo2D().getFondo().isAlphaPremultiplied();
-            this.imagenOriginal = new BufferedImage(cm, raster, alfaPre, null);*/
+        float offset[], factor[];
+        if (vi != null && this.imagenOriginal != null) {           
+            System.out.println("Tipo de imagen: " + this.imagenOriginal.getType());
             
-            RescaleOp rop = new RescaleOp(1.0F, this.deslizador.getValue()-50, null); //(contraste, brillo, renderizado)
+            if (this.imagenOriginal.getColorModel().hasAlpha()){ //Tipos con canal alfa
+                System.out.println("Canal alfa");
+                offset = new float[4];// = {this.deslizador.getValue()-50, this.deslizador.getValue()-50, this.deslizador.getValue()-50, 0};
+                factor = new float[4];
+
+
+
+                offset[3] = 0;
+                factor[3] = 1.0F;
+            }
+            else{ // Si no tienen alfa
+                    offset = new float[3];
+                    factor = new float[3];             
+            }
             
-            rop.filter(this.imagenOriginal, vi.getLienzo2D().getFondo(false));
+            for (int i = 0; i < 3; i++) {
+                offset[i] = this.deslizador.getValue()*(float)4 - 200;
+                factor[i] = 1.0F;
+            }
             
+            RescaleOp rop = new RescaleOp(factor, offset, null); //(contraste, brillo, renderizado)
+            
+            BufferedImage aux = rop.filter(this.imagenOriginal, null);            
+            vi.getLienzo2D().setFondo(aux);
             vi.getLienzo2D().repaint();
            
             System.out.println("Brillo: " + this.deslizador.getValue());
@@ -789,7 +969,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void listaFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaFiltrosActionPerformed
         VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
         if (vi != null) {
-            BufferedImage img = vi.getLienzo2D().getFondo(false);
+            BufferedImage img = vi.getLienzo2D().getFondo(true);
             Kernel k;
             k = this.getKernel(this.listaFiltros.getSelectedIndex());
             
@@ -805,6 +985,70 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_listaFiltrosActionPerformed
+
+    private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
+        this.nuevaVentanaActionPerformed(evt);
+    }//GEN-LAST:event_nuevoActionPerformed
+
+    private void abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirActionPerformed
+        this.abrirDibujoActionPerformed(evt);
+    }//GEN-LAST:event_abrirActionPerformed
+
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        this.guardarDibujoActionPerformed(evt);
+    }//GEN-LAST:event_guardarActionPerformed
+
+    private void listaColoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaColoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listaColoresActionPerformed
+
+    private void escritorioMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_escritorioMouseMoved
+
+    }//GEN-LAST:event_escritorioMouseMoved
+
+    private void rellenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rellenarActionPerformed
+        this.rellenoSelected = !this.rellenoSelected; //No funciona la detección de las posiciones de este botón
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        this.rellenar.setSelected(this.rellenoSelected);
+        
+        if (vi != null) {
+            vi.getLienzo2D().setRelleno(this.rellenoSelected);
+        }
+       
+       
+    }//GEN-LAST:event_rellenarActionPerformed
+
+    private void transparenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transparenciaActionPerformed
+        this.transparenciaSelected = !this.transparenciaSelected;
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        this.transparencia.setSelected(this.transparenciaSelected);
+        
+        if (vi != null) {
+            vi.getLienzo2D().setTransparencia(this.transparenciaSelected);
+            vi.getLienzo2D().setAtributos();
+        }
+    }//GEN-LAST:event_transparenciaActionPerformed
+
+    private void alisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alisarActionPerformed
+        this.alisarSelected = !this.alisarSelected;
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        this.alisar.setSelected(this.alisarSelected);
+        
+        if (vi != null) {
+            vi.getLienzo2D().setAlisar(this.alisarSelected);
+            vi.getLienzo2D().setAtributos();
+        }
+    }//GEN-LAST:event_alisarActionPerformed
+
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        this.seleccionarSelected = !this.seleccionarSelected;
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        this.editar.setSelected(this.seleccionarSelected);
+        
+        if (vi != null) {
+            vi.getLienzo2D().setEditar(this.seleccionarSelected);
+        }
+    }//GEN-LAST:event_editarActionPerformed
 
     private Kernel getKernel(int seleccion) {
         Kernel k = null;
@@ -896,7 +1140,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelCentral;
+    private javax.swing.JButton abrir;
     private javax.swing.JMenuItem abrirDibujo;
+    private javax.swing.JToggleButton alisar;
     private javax.swing.JMenu archivo;
     private javax.swing.JPanel barraAtributos;
     private javax.swing.JPanel barraEstado;
@@ -918,18 +1164,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton colorRojo;
     private javax.swing.JButton colorVerde;
     private javax.swing.JMenuItem convolveOp;
+    private javax.swing.JLabel coordenadasPuntero;
     private javax.swing.JSlider deslizador;
     private javax.swing.JMenu edicion;
+    private javax.swing.JToggleButton editar;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel etiquetaHerramientaActual;
+    private javax.swing.JButton guardar;
     private javax.swing.JMenuItem guardarDibujo;
     private javax.swing.JMenu imagen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JComboBox<Color> listaColores;
     private javax.swing.JComboBox<String> listaFiltros;
     private javax.swing.JMenuItem nuevaVentana;
+    private javax.swing.JButton nuevo;
     private javax.swing.JMenuItem recaleOp;
+    private javax.swing.JToggleButton rellenar;
+    private javax.swing.JToggleButton transparencia;
     private javax.swing.JCheckBoxMenuItem verBarraAtributos;
     private javax.swing.JCheckBoxMenuItem verBarraEstado;
     private javax.swing.JCheckBoxMenuItem verBarraFormas;
