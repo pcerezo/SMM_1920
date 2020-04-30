@@ -106,8 +106,16 @@ public class Lienzo2D extends javax.swing.JPanel {
         //Se sobrecarga
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.WHITE);
         //Lo primero: dibujar la imagen
-        if (this.fondo!= null) g2d.drawImage(this.fondo, 0, 0, this);
+        if (this.fondo!= null) {            
+            //g2d.setColor(Color.WHITE);
+            //g2d.fill(new Rectangle(0, 0, this.fondo.getWidth(), this.fondo.getHeight()));
+            g2d.drawImage(this.fondo, 0, 0, null);
+            System.out.println("Dibujando imagen");
+            //g.drawImage(this.fondo, 0, 0, null);
+            //g2d.drawImage(this.fondo, 0, 0, null);
+        }
         else {
             Point paux = new Point(0,0);
             g2d.setColor(Color.WHITE);
@@ -184,7 +192,7 @@ public class Lienzo2D extends javax.swing.JPanel {
             if (this.fondo != null) {
                 this.paint(g2dImagen);
                 
-                return imgout;
+                return(imgout);
             }
             return null;
         }
@@ -297,6 +305,7 @@ public class Lienzo2D extends javax.swing.JPanel {
  
             if (this.figuraActual != null) { //Si seleccionamos algo que es una figura
                 this.pOrigen = new Point(this.figuraActual.getPos());
+                //Cuando empiezo a mover calculo la distancia horizontal y vertical hasta el punto
                 this.dx = this.p.x - this.pOrigen.x;
                 this.dy = this.p.y - this.pOrigen.y;
                 System.out.println("Ancho: " + dx + ", alto:" + dy);
@@ -342,7 +351,7 @@ public class Lienzo2D extends javax.swing.JPanel {
         if (this.isEditar()) {
             //Ahora movemos la figura seleccionada
             if (this.figuraActual != null && this.pOrigen != null){
-                this.figuraActual.setLocation(p2, this.dx, this.dy);
+                this.figuraActual.setLocation(p2, this.dx, this.dy); //(Punto del dragged, diferencia horizontal hasta el punto inicial, diferencia vertical hasta el punto inicial
                 //System.out.println("Moviendo una figura de tipo " + this.figuraActual.getTipo()); //Comprobar que la detecta
                 this.notifyPropertyChangeEvent(new LienzoEvent(this, this.figuraActual.getFigura(), this.color));
             }

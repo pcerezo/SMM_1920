@@ -71,11 +71,11 @@ public class Figura { //Clase que distingue los distintos tipos de figuras y en 
         Point pAux = new Point(pnew.x-dx, pnew.y -dy);
         if (this.getFigura() instanceof Linea) {
             
-            int ancho = (int) ((Linea) this.figura).getX1() - (int) ((Linea) this.figura).getX2();
-            int alto = (int) ((Linea) this.figura).getY1() - (int) ((Linea) this.figura).getY2();
+            int ancho = pAux.x - (int) ((Linea) this.figura).getX1();
+            int alto = pAux.y - (int) ((Linea) this.figura).getY1();
             
             System.out.println("ancho línea: " + ancho + ", alto línea: " + alto);
-            ((Linea) this.figura).setLine(pAux.x, pAux.y, ((Linea) this.figura).getX2(), ((Linea) this.figura).getY2());
+            ((Linea) this.figura).setLine(((Linea) this.figura).getX1()+ancho ,((Linea) this.figura).getY1()+alto, ((Linea) this.figura).getX2()+ancho, ((Linea) this.figura).getY2()+alto);
         }
         else if(this.getFigura() instanceof Rectangle){
             ((Rectangle) this.figura).setLocation(pAux);
