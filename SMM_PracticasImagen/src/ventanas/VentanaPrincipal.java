@@ -90,21 +90,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         transparencia = new javax.swing.JToggleButton();
         alisar = new javax.swing.JToggleButton();
         editar = new javax.swing.JToggleButton();
+        botonGrosor = new javax.swing.JSpinner();
         barraAtributos = new javax.swing.JPanel();
         barraEstado = new javax.swing.JPanel();
         etiquetaHerramientaActual = new javax.swing.JLabel();
         coordenadasPuntero = new javax.swing.JLabel();
-        colorNegro = new javax.swing.JButton();
-        colorBlanco = new javax.swing.JButton();
-        colorAmarillo = new javax.swing.JButton();
-        colorRojo = new javax.swing.JButton();
-        colorVerde = new javax.swing.JButton();
-        colorAzul = new javax.swing.JButton();
-        botonRelleno = new javax.swing.JCheckBox();
-        botonEditar = new javax.swing.JCheckBox();
-        botonAlisar = new javax.swing.JCheckBox();
-        botonTransparencia = new javax.swing.JCheckBox();
-        botonGrosor = new javax.swing.JSpinner();
         deslizador = new javax.swing.JSlider();
         listaFiltros = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -271,6 +261,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         barraFormas.add(editar);
 
+        botonGrosor.setMaximumSize(new java.awt.Dimension(27, 18));
+        botonGrosor.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                botonGrosorStateChanged(evt);
+            }
+        });
+        botonGrosor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonGrosorMouseClicked(evt);
+            }
+        });
+        barraFormas.add(botonGrosor);
+
         getContentPane().add(barraFormas, java.awt.BorderLayout.PAGE_START);
 
         javax.swing.GroupLayout barraEstadoLayout = new javax.swing.GroupLayout(barraEstado);
@@ -282,94 +285,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(etiquetaHerramientaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(coordenadasPuntero, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
         barraEstadoLayout.setVerticalGroup(
             barraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(etiquetaHerramientaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
             .addComponent(coordenadasPuntero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        colorNegro.setBackground(new java.awt.Color(0, 0, 0));
-        colorNegro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorNegroActionPerformed(evt);
-            }
-        });
-
-        colorBlanco.setBackground(new java.awt.Color(255, 255, 255));
-        colorBlanco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorBlancoActionPerformed(evt);
-            }
-        });
-
-        colorAmarillo.setBackground(new java.awt.Color(255, 255, 0));
-        colorAmarillo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorAmarilloActionPerformed(evt);
-            }
-        });
-
-        colorRojo.setBackground(new java.awt.Color(255, 0, 0));
-        colorRojo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorRojoActionPerformed(evt);
-            }
-        });
-
-        colorVerde.setBackground(new java.awt.Color(0, 255, 0));
-        colorVerde.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorVerdeActionPerformed(evt);
-            }
-        });
-
-        colorAzul.setBackground(new java.awt.Color(51, 153, 255));
-        colorAzul.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorAzulActionPerformed(evt);
-            }
-        });
-
-        botonRelleno.setText("Relleno");
-        botonRelleno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRellenoActionPerformed(evt);
-            }
-        });
-
-        botonEditar.setText("Editar");
-        botonEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonEditarActionPerformed(evt);
-            }
-        });
-
-        botonAlisar.setText("Alisar");
-        botonAlisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAlisarActionPerformed(evt);
-            }
-        });
-
-        botonTransparencia.setText("Transparencia");
-        botonTransparencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonTransparenciaActionPerformed(evt);
-            }
-        });
-
-        botonGrosor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                botonGrosorStateChanged(evt);
-            }
-        });
-        botonGrosor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonGrosorMouseClicked(evt);
-            }
-        });
 
         deslizador.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -402,71 +324,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(barraEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(barraAtributosLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(colorRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                    .addComponent(colorNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(colorBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(colorVerde, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(colorAmarillo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(colorAzul, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                .addGap(42, 42, 42)
-                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonRelleno)
-                    .addComponent(botonEditar))
-                .addGap(26, 26, 26)
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addComponent(botonTransparencia)
-                        .addGap(78, 78, 78)
-                        .addComponent(botonGrosor, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
+                        .addContainerGap()
                         .addComponent(deslizador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addComponent(botonAlisar)
-                        .addGap(213, 213, 213)
+                        .addGap(21, 21, 21)
                         .addComponent(jLabel1)))
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(listaFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         barraAtributosLayout.setVerticalGroup(
             barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(colorNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(colorBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(colorAmarillo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(botonRelleno)
-                                .addComponent(botonAlisar))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonGrosor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deslizador, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(deslizador, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(colorRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(colorVerde, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(colorAzul, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(botonEditar)
-                                .addComponent(botonTransparencia))
-                            .addComponent(listaFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(listaFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(barraEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -488,7 +372,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 534, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
         );
 
         PanelCentral.add(escritorio, java.awt.BorderLayout.CENTER);
@@ -580,12 +464,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     
-    private void botonTransparenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTransparenciaActionPerformed
-        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
-        vi.getLienzo2D().setTransparencia(this.botonTransparencia.isSelected());
-        vi.getLienzo2D().setAtributos();
-    }//GEN-LAST:event_botonTransparenciaActionPerformed
-
     private void nuevaVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaVentanaActionPerformed
         //Creamos nueva ventana interna
         VentanaInterna vi = new VentanaInterna();
@@ -739,60 +617,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.botonOvalo.setSelected(false);
         this.botonPera.setSelected(false);
         this.herramientaActual = Herramienta.LAPIZ;
-        
-        this.botonAlisar.setSelected(false);
-        this.botonEditar.setSelected(false);
-        this.botonRelleno.setSelected(false);
-        this.botonTransparencia.setSelected(false);
+
         this.botonGrosor.setValue(1);
     }
     
-    private void botonRellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRellenoActionPerformed
-        VentanaInterna vi = (VentanaInterna)this.escritorio.getSelectedFrame();
-        vi.getLienzo2D().setRelleno(this.botonRelleno.isSelected());        
-    }//GEN-LAST:event_botonRellenoActionPerformed
-
-    private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
-        VentanaInterna vi = (VentanaInterna)this.escritorio.getSelectedFrame();
-        vi.getLienzo2D().setEditar(this.botonEditar.isSelected());
-    }//GEN-LAST:event_botonEditarActionPerformed
-
-    private void colorNegroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorNegroActionPerformed
-        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
-        vi.getLienzo2D().setColor(Color.BLACK);
-    }//GEN-LAST:event_colorNegroActionPerformed
-
-    private void colorBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorBlancoActionPerformed
-        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
-        vi.getLienzo2D().setColor(Color.WHITE);
-    }//GEN-LAST:event_colorBlancoActionPerformed
-
-    private void colorAmarilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorAmarilloActionPerformed
-        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
-        vi.getLienzo2D().setColor(Color.YELLOW);
-    }//GEN-LAST:event_colorAmarilloActionPerformed
-
-    private void colorRojoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorRojoActionPerformed
-        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
-        vi.getLienzo2D().setColor(Color.RED);
-    }//GEN-LAST:event_colorRojoActionPerformed
-
-    private void colorVerdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorVerdeActionPerformed
-        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
-        vi.getLienzo2D().setColor(Color.GREEN);
-    }//GEN-LAST:event_colorVerdeActionPerformed
-
-    private void colorAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorAzulActionPerformed
-        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
-        vi.getLienzo2D().setColor(Color.BLUE);
-    }//GEN-LAST:event_colorAzulActionPerformed
-
-    private void botonAlisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAlisarActionPerformed
-        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
-        vi.getLienzo2D().setAlisar(this.botonAlisar.isSelected());
-        vi.getLienzo2D().setAtributos();
-    }//GEN-LAST:event_botonAlisarActionPerformed
-
     private void botonGrosorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGrosorMouseClicked
         //System.out.println("Grosor modificado");
     }//GEN-LAST:event_botonGrosorMouseClicked
@@ -999,7 +827,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_guardarActionPerformed
 
     private void listaColoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaColoresActionPerformed
-        // TODO add your handling code here:
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        Color colorActual = this.listaColores.getItemAt(this.listaColores.getSelectedIndex());
+            
+        System.out.println("Color actual: "+ colorActual);
+
+        if (vi != null) {
+            vi.getLienzo2D().setColor(colorActual);
+        }
     }//GEN-LAST:event_listaColoresActionPerformed
 
     private void escritorioMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_escritorioMouseMoved
@@ -1118,12 +953,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             System.out.println("Ventana seleccionada");
             VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
             
-            //Obtenemos las opciones seleccionadas
-            botonRelleno.setSelected(vi.getLienzo2D().isRelleno());
-            botonAlisar.setSelected(vi.getLienzo2D().isAlisar());
-            botonEditar.setSelected(vi.getLienzo2D().isEditar());
-            botonTransparencia.setSelected(vi.getLienzo2D().isTransparencia());
-            
             System.out.println("Herramienta de esta ventana = " + vi.getLienzo2D().getHerramienta());
             //Obtenemos las herramientas en uso en la ventana interna
             botonLapiz.setSelected(Herramienta.LAPIZ.equals(vi.getLienzo2D().getHerramienta()));
@@ -1147,22 +976,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel barraAtributos;
     private javax.swing.JPanel barraEstado;
     private javax.swing.JToolBar barraFormas;
-    private javax.swing.JCheckBox botonAlisar;
-    private javax.swing.JCheckBox botonEditar;
     private javax.swing.JSpinner botonGrosor;
     private javax.swing.JToggleButton botonLapiz;
     private javax.swing.JToggleButton botonLinea;
     private javax.swing.JToggleButton botonOvalo;
     private javax.swing.JToggleButton botonPera;
     private javax.swing.JToggleButton botonRectangulo;
-    private javax.swing.JCheckBox botonRelleno;
-    private javax.swing.JCheckBox botonTransparencia;
-    private javax.swing.JButton colorAmarillo;
-    private javax.swing.JButton colorAzul;
-    private javax.swing.JButton colorBlanco;
-    private javax.swing.JButton colorNegro;
-    private javax.swing.JButton colorRojo;
-    private javax.swing.JButton colorVerde;
     private javax.swing.JMenuItem convolveOp;
     private javax.swing.JLabel coordenadasPuntero;
     private javax.swing.JSlider deslizador;
