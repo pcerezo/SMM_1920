@@ -13,10 +13,15 @@ import java.awt.Point;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.ByteLookupTable;
 import java.awt.image.ColorModel;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+import java.awt.image.LookupOp;
+import java.awt.image.LookupTable;
 import java.awt.image.RescaleOp;
 import java.awt.image.WritableRaster;
 import java.io.File;
@@ -30,7 +35,9 @@ import javax.swing.JTextField;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import sm.image.ImageTools;
 import sm.image.KernelProducer;
+import sm.image.LookupTableProducer;
 
 /**
  *
@@ -46,6 +53,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private BufferedImage imagenOriginal;
     private Point puntero;
     private boolean rellenoSelected, transparenciaSelected, alisarSelected, seleccionarSelected;
+    private boolean girado; //Para saber si hay que guardar con formato PNG para que no haya error
     
     public VentanaPrincipal() {
         initComponents();
@@ -58,10 +66,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         System.out.println("deslizador: " + this.deslizador.getValue());
         
         rellenoSelected = transparenciaSelected = alisarSelected = seleccionarSelected = false;
-//        this.rellenar.setSelected(false);
-//        this.transparencia.setSelected(false);
-//        this.alisar.setSelected(false);
-//        this.editar.setSelected(false);
+        
+        girado = false;
     }
    
     /**
@@ -73,6 +79,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem3 = new javax.swing.JMenuItem();
         barraFormas = new javax.swing.JToolBar();
         nuevo = new javax.swing.JButton();
         abrir = new javax.swing.JButton();
@@ -99,6 +106,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         listaFiltros = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        contrasteNormal = new javax.swing.JButton();
+        contrasteIluminado = new javax.swing.JButton();
+        contrasteOscurecido = new javax.swing.JButton();
+        cuadratica = new javax.swing.JButton();
+        rotacionSlider = new javax.swing.JSlider();
+        rotacion90 = new javax.swing.JButton();
+        rotacion180 = new javax.swing.JButton();
+        rotacion270 = new javax.swing.JButton();
+        escalaMas = new javax.swing.JButton();
+        escalaMenos = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         PanelCentral = new javax.swing.JPanel();
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -111,8 +131,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         verBarraAtributos = new javax.swing.JCheckBoxMenuItem();
         verBarraFormas = new javax.swing.JCheckBoxMenuItem();
         imagen = new javax.swing.JMenu();
-        recaleOp = new javax.swing.JMenuItem();
+        rescaleOp = new javax.swing.JMenuItem();
         convolveOp = new javax.swing.JMenuItem();
+        affineTransform = new javax.swing.JMenuItem();
+        lookupOp = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -285,7 +311,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(etiquetaHerramientaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(coordenadasPuntero, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         barraEstadoLayout.setVerticalGroup(
             barraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,6 +344,89 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel2.setText("Filtros:");
 
+        jLabel3.setText("Contraste");
+
+        contrasteNormal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/contraste.png"))); // NOI18N
+        contrasteNormal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contrasteNormalActionPerformed(evt);
+            }
+        });
+
+        contrasteIluminado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/iluminar.png"))); // NOI18N
+        contrasteIluminado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contrasteIluminadoActionPerformed(evt);
+            }
+        });
+
+        contrasteOscurecido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/oscurecer.png"))); // NOI18N
+        contrasteOscurecido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contrasteOscurecidoActionPerformed(evt);
+            }
+        });
+
+        cuadratica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cuadratica.png"))); // NOI18N
+        cuadratica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cuadraticaActionPerformed(evt);
+            }
+        });
+
+        rotacionSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rotacionSliderStateChanged(evt);
+            }
+        });
+        rotacionSlider.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                rotacionSliderFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                rotacionSliderFocusLost(evt);
+            }
+        });
+
+        rotacion90.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rotacion90.png"))); // NOI18N
+        rotacion90.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rotacion90ActionPerformed(evt);
+            }
+        });
+
+        rotacion180.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rotacion180.png"))); // NOI18N
+        rotacion180.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rotacion180ActionPerformed(evt);
+            }
+        });
+
+        rotacion270.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rotacion270.png"))); // NOI18N
+        rotacion270.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rotacion270ActionPerformed(evt);
+            }
+        });
+
+        escalaMas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/aumentar.png"))); // NOI18N
+        escalaMas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                escalaMasActionPerformed(evt);
+            }
+        });
+
+        escalaMenos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/disminuir.png"))); // NOI18N
+        escalaMenos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                escalaMenosActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Escala");
+
+        jLabel5.setText("Rotación");
+
         javax.swing.GroupLayout barraAtributosLayout = new javax.swing.GroupLayout(barraAtributos);
         barraAtributos.setLayout(barraAtributosLayout);
         barraAtributosLayout.setHorizontalGroup(
@@ -326,30 +435,81 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(barraAtributosLayout.createSequentialGroup()
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(deslizador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(barraAtributosLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(barraAtributosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(deslizador, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(listaFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(listaFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(28, 28, 28)
+                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(barraAtributosLayout.createSequentialGroup()
+                        .addComponent(contrasteNormal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(contrasteIluminado, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(contrasteOscurecido, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(cuadratica, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3))
+                .addGap(34, 34, 34)
+                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(barraAtributosLayout.createSequentialGroup()
+                        .addComponent(rotacionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rotacion90, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rotacion180, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rotacion270, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(barraAtributosLayout.createSequentialGroup()
+                        .addComponent(escalaMas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(escalaMenos))
+                    .addComponent(jLabel4))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         barraAtributosLayout.setVerticalGroup(
             barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(barraAtributosLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(contrasteIluminado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(contrasteNormal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(contrasteOscurecido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cuadratica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(barraAtributosLayout.createSequentialGroup()
+                                        .addComponent(listaFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(rotacion90, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rotacion180, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rotacion270, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(escalaMas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(escalaMenos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(barraAtributosLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rotacionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deslizador, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(listaFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(deslizador, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(barraEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -368,11 +528,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1052, Short.MAX_VALUE)
+            .addGap(0, 1092, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGap(0, 529, Short.MAX_VALUE)
         );
 
         PanelCentral.add(escritorio, java.awt.BorderLayout.CENTER);
@@ -440,13 +600,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         imagen.setText("Imagen");
 
-        recaleOp.setText("RescaleOp");
-        recaleOp.addActionListener(new java.awt.event.ActionListener() {
+        rescaleOp.setText("RescaleOp");
+        rescaleOp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                recaleOpActionPerformed(evt);
+                rescaleOpActionPerformed(evt);
             }
         });
-        imagen.add(recaleOp);
+        imagen.add(rescaleOp);
 
         convolveOp.setText("ConvolveOp");
         convolveOp.addActionListener(new java.awt.event.ActionListener() {
@@ -455,6 +615,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         imagen.add(convolveOp);
+
+        affineTransform.setText("AffineTransformOp");
+        affineTransform.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                affineTransformActionPerformed(evt);
+            }
+        });
+        imagen.add(affineTransform);
+
+        lookupOp.setText("LookupOp");
+        lookupOp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lookupOpActionPerformed(evt);
+            }
+        });
+        imagen.add(lookupOp);
+
+        jMenuItem4.setText("BandCombineOp");
+        imagen.add(jMenuItem4);
+
+        jMenuItem5.setText("ColorConvertOp");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        imagen.add(jMenuItem5);
 
         jMenuBar1.add(imagen);
 
@@ -503,9 +690,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     try{
                         File f = dlg.getSelectedFile();
                         String extension = getExtension(f.getName());
-                        ImageIO.write(img, extension, f);
-                        System.out.println("Guardada imagen con extensión " + extension);
-                        vi.setTitle(f.getName());
+                        
+                        
+                        if (vi.isGirado()) {
+                            ImageIO.write(img, "png", f);
+                            
+                        }
+                        else if (extension == null) {
+                            ImageIO.write(img, "jpg", f);
+                        }
+                        else {
+                            ImageIO.write(img, extension, f);
+                        }
+                        
+                       vi.setTitle(f.getName());
                     }
                     catch (Exception e) {
                         JDialog aviso = new JDialog();
@@ -691,21 +889,57 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.barraFormas.setVisible(this.verBarraFormas.isSelected());
     }//GEN-LAST:event_verBarraFormasActionPerformed
 
-    private void recaleOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recaleOpActionPerformed
+    private void rescaleOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rescaleOpActionPerformed
         VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
-        if (vi != null) {
-            BufferedImage img = vi.getLienzo2D().getFondo(false);
-            if (img != null) {
-                try {
-                    RescaleOp rop = new RescaleOp(1.0F, 100.0F, null); //(contraste, brillo, renderizado)
-                    rop.filter(img, img); //(src, dst) Sobreescribimos la propia imagen
-                    vi.getLienzo2D().repaint();
-                } catch (IllegalArgumentException e) {
-                    System.err.println(e.getLocalizedMessage());
-                }
+//        if (vi != null) {
+//            BufferedImage img = vi.getLienzo2D().getFondo(false);
+//            if (img != null) {
+//                try {
+//                    RescaleOp rop = new RescaleOp(1.0F, 100.0F, null); //(contraste, brillo, renderizado)
+//                    rop.filter(img, img); //(src, dst) Sobreescribimos la propia imagen
+//                    vi.getLienzo2D().repaint();
+//                } catch (IllegalArgumentException e) {
+//                    System.err.println(e.getLocalizedMessage());
+//                }
+//            }
+//        }
+        //Copio la imagen tal cual
+        ColorModel cm = vi.getLienzo2D().getFondo(false).getColorModel();
+        WritableRaster raster = vi.getLienzo2D().getFondo(false).copyData(null);
+        boolean alfaPre = vi.getLienzo2D().getFondo(false).isAlphaPremultiplied();
+        this.imagenOriginal = new BufferedImage(cm, raster, alfaPre, null);
+        
+        float offset[], factor[];
+        if (vi != null && this.imagenOriginal != null) {           
+            System.out.println("Tipo de imagen: " + this.imagenOriginal.getType());
+            
+            if (this.imagenOriginal.getColorModel().hasAlpha()){ //Tipos con canal alfa
+                System.out.println("Canal alfa");
+                offset = new float[4];// = {this.deslizador.getValue()-50, this.deslizador.getValue()-50, this.deslizador.getValue()-50, 0};
+                factor = new float[4];
+
+
+
+                offset[3] = 0;
+                factor[3] = 1.0F;
             }
+            else{ // Si no tienen alfa
+                    offset = new float[3];
+                    factor = new float[3];             
+            }
+            
+            for (int i = 0; i < 3; i++) {
+                offset[i] = 100.0F;
+                factor[i] = 1.0F;
+            }
+            
+            RescaleOp rop = new RescaleOp(factor, offset, null); //(contraste, brillo, renderizado)
+            
+            BufferedImage aux = rop.filter(this.imagenOriginal, null);            
+            vi.getLienzo2D().setFondo(aux);
+            vi.getLienzo2D().repaint();
         }
-    }//GEN-LAST:event_recaleOpActionPerformed
+    }//GEN-LAST:event_rescaleOpActionPerformed
 
     private void convolveOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_convolveOpActionPerformed
         VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
@@ -885,6 +1119,249 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_editarActionPerformed
 
+    private void affineTransformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_affineTransformActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        
+        if (vi != null) {
+            BufferedImage img = vi.getLienzo2D().getFondo();
+            
+            if (img != null) {
+                try{
+                    AffineTransform at = AffineTransform.getScaleInstance(1.5, 1.5);
+                    AffineTransformOp atop = new AffineTransformOp(at, null);
+                    BufferedImage imgdest = atop.filter(img, null);
+                    vi.getLienzo2D().setFondo(imgdest);
+                    vi.getLienzo2D().repaint();
+                }
+                catch (Exception e) {
+                    System.out.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_affineTransformActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void lookupOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lookupOpActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        
+        if (vi != null) {
+            BufferedImage img = vi.getLienzo2D().getFondo();
+            
+            if (img != null) {
+                try{
+                    byte functionT[] = new byte[256];
+                    //Relleno la función de la forma en que quiero que actúen los colores, en este caso invirtiéndolos
+                    for (int x = 0; x < 256; x++) {
+                        functionT[x] = (byte) (255-x);
+                    }
+                    LookupTable tabla = new ByteLookupTable(0, functionT);
+                    LookupOp lop = new LookupOp(tabla, null);
+                    
+                    //Compruebo si la imagen es BGR para evitar incompatibilidades al transformar
+                    if (img.getType() == BufferedImage.TYPE_INT_BGR) {
+                        img = ImageTools.convertImageType(img, BufferedImage.TYPE_INT_ARGB);
+                    }
+                    
+                    BufferedImage imgdest = lop.filter(img, null);
+                    vi.getLienzo2D().setFondo(imgdest);
+                    vi.getLienzo2D().repaint();
+                }
+                catch (Exception e) {
+                    System.out.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_lookupOpActionPerformed
+
+    private void contrasteNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasteNormalActionPerformed
+        contraste(LookupTableProducer.TYPE_SFUNCION);
+    }//GEN-LAST:event_contrasteNormalActionPerformed
+
+    private void contrasteIluminadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasteIluminadoActionPerformed
+        contraste(LookupTableProducer.TYPE_LOGARITHM);
+    }//GEN-LAST:event_contrasteIluminadoActionPerformed
+
+    private void contrasteOscurecidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasteOscurecidoActionPerformed
+        contraste(LookupTableProducer.TYPE_POWER);
+    }//GEN-LAST:event_contrasteOscurecidoActionPerformed
+
+    private void contraste(int tipo) {
+        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
+        
+        if (vi != null) {
+            BufferedImage img = vi.getLienzo2D().getFondo();
+            if (img != null) {
+                try {
+                    //int type = tipo;
+                    LookupTable lt = LookupTableProducer.createLookupTable(tipo);
+                    LookupOp lop = new LookupOp(lt, null);
+                    // Imagen origen y destino iguales
+                    lop.filter(img, img);
+                    vi.getLienzo2D().repaint();
+                } catch (Exception e) {
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }
+    
+    private void cuadraticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuadraticaActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        
+        if ( vi != null) {
+            BufferedImage img = vi.getLienzo2D().getFondo();
+            if (img != null) {
+                try{
+                    LookupTable lt = cuadratica(128.0);
+                    LookupOp lop = new LookupOp(lt, null);
+                    lop.filter(img, img);
+                    vi.getLienzo2D().repaint();
+                }
+                catch(Exception e){
+                    System.out.println("Error en la función cuadrática");
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_cuadraticaActionPerformed
+
+    private void rotacion90ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rotacion90ActionPerformed
+        this.rotar(90);
+    }//GEN-LAST:event_rotacion90ActionPerformed
+
+    private void rotacion180ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rotacion180ActionPerformed
+        this.rotar(180);
+    }//GEN-LAST:event_rotacion180ActionPerformed
+
+    private void rotacion270ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rotacion270ActionPerformed
+        this.rotar(270);
+    }//GEN-LAST:event_rotacion270ActionPerformed
+
+    private void rotacionSliderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rotacionSliderFocusGained
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        
+        if (vi != null) {
+            ColorModel cm = vi.getLienzo2D().getFondo(false).getColorModel();
+            WritableRaster raster = vi.getLienzo2D().getFondo(false).copyData(null);
+            boolean alfaPre = vi.getLienzo2D().getFondo(false).isAlphaPremultiplied();
+            this.imagenOriginal = new BufferedImage(cm, raster, alfaPre, null);
+            
+            vi.setGirado(true); // Como la hemos girado, tenemos que guardar en un formato compatible
+            System.out.println("imagen girada: " + vi.isGirado());
+        }
+    }//GEN-LAST:event_rotacionSliderFocusGained
+
+    private void rotacionSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rotacionSliderFocusLost
+        this.imagenOriginal = null;
+        this.rotacionSlider.setValue(0);
+    }//GEN-LAST:event_rotacionSliderFocusLost
+
+    private void rotacionSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rotacionSliderStateChanged
+       VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+       
+       if (vi != null && this.imagenOriginal != null) {
+           try {
+               double r = this.rotacionSlider.getValue() * (2*Math.PI/100) ;
+               System.out.println("Rotacion: " + this.rotacionSlider.getValue());
+               Point c = new Point(this.imagenOriginal.getWidth()/2, this.imagenOriginal.getHeight()/2);
+               AffineTransform at = AffineTransform.getRotateInstance(r, c.x, c.y);
+               AffineTransformOp atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+               BufferedImage imgdest = atop.filter(this.imagenOriginal, null);
+               vi.getLienzo2D().setFondo(imgdest);
+               vi.getLienzo2D().repaint();
+           }
+           catch(Exception e) {}
+       }
+    }//GEN-LAST:event_rotacionSliderStateChanged
+
+    private void escalaMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escalaMasActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        
+        if (vi != null) {
+            BufferedImage imgSrc = vi.getLienzo2D().getFondo();
+            try {
+                AffineTransform at = AffineTransform.getScaleInstance(1.25, 1.25);
+                AffineTransformOp atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+                BufferedImage imgdest = atop.filter(imgSrc, null);
+                vi.getLienzo2D().setFondo(imgdest);
+                vi.getLienzo2D().repaint();
+            }
+            catch (Exception e) {
+                System.out.println(e.getLocalizedMessage());
+            }
+        }
+    }//GEN-LAST:event_escalaMasActionPerformed
+
+    private void escalaMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escalaMenosActionPerformed
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        
+        if (vi != null) {
+            BufferedImage imgSrc = vi.getLienzo2D().getFondo();
+            try {
+                AffineTransform at = AffineTransform.getScaleInstance(0.75, 0.75);
+                AffineTransformOp atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+                BufferedImage imgdest = atop.filter(imgSrc, null);
+                vi.getLienzo2D().setFondo(imgdest);
+                vi.getLienzo2D().repaint();
+            }
+            catch (Exception e) {
+                System.out.println(e.getLocalizedMessage());
+            }
+        }
+    }//GEN-LAST:event_escalaMenosActionPerformed
+
+    private void rotar(double grados) {
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        
+        if (vi != null) {
+            BufferedImage imgori = vi.getLienzo2D().getFondo();
+            
+            if (imgori != null) {
+                try{
+                    double r = Math.toRadians(grados);
+                    Point c = new Point(imgori.getWidth()/2, imgori.getHeight()/2);
+                    AffineTransform at = AffineTransform.getRotateInstance(r, c.x, c.y);
+                    AffineTransformOp atop;
+                    atop = new AffineTransformOp(at,AffineTransformOp.TYPE_BILINEAR);
+                    BufferedImage imgdest = atop.filter(imgori, null);
+                    vi.getLienzo2D().setFondo(imgdest);
+                    vi.getLienzo2D().repaint();
+                }
+                catch(Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }   
+            }
+        }
+    }
+    
+    public LookupTable cuadratica(double m) {
+        double max;
+        double coef = 0.01;
+        if (m >= 128)
+            max = (coef * Math.pow(0-m, 2));
+        else
+            max = (coef * Math.pow(255-m, 2));
+        
+        double K = 255/max;
+        LookupTable lt;// = null;
+        byte funcionCuad[] = new byte[256];
+        
+        for (int x = 0; x < 256; x++) {
+            funcionCuad[x] = (byte) (K * 0.01*(Math.pow((x - m), 2)));
+            
+            
+            System.out.println("K = " + K + ",x = " + x + ",m = " + m);
+            System.out.println("funcionCuad[" + x + "] = " + funcionCuad[x]);            
+        }
+        
+        lt = new ByteLookupTable(0, funcionCuad);
+        
+        return lt;
+    }
+    
     private Kernel getKernel(int seleccion) {
         Kernel k = null;
         switch(seleccion) {
@@ -908,7 +1385,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         return k;
     }
-    
     
     
     /**
@@ -971,6 +1447,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel PanelCentral;
     private javax.swing.JButton abrir;
     private javax.swing.JMenuItem abrirDibujo;
+    private javax.swing.JMenuItem affineTransform;
     private javax.swing.JToggleButton alisar;
     private javax.swing.JMenu archivo;
     private javax.swing.JPanel barraAtributos;
@@ -982,11 +1459,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton botonOvalo;
     private javax.swing.JToggleButton botonPera;
     private javax.swing.JToggleButton botonRectangulo;
+    private javax.swing.JButton contrasteIluminado;
+    private javax.swing.JButton contrasteNormal;
+    private javax.swing.JButton contrasteOscurecido;
     private javax.swing.JMenuItem convolveOp;
     private javax.swing.JLabel coordenadasPuntero;
+    private javax.swing.JButton cuadratica;
     private javax.swing.JSlider deslizador;
     private javax.swing.JMenu edicion;
     private javax.swing.JToggleButton editar;
+    private javax.swing.JButton escalaMas;
+    private javax.swing.JButton escalaMenos;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel etiquetaHerramientaActual;
     private javax.swing.JButton guardar;
@@ -994,15 +1477,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu imagen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JComboBox<Color> listaColores;
     private javax.swing.JComboBox<String> listaFiltros;
+    private javax.swing.JMenuItem lookupOp;
     private javax.swing.JMenuItem nuevaVentana;
     private javax.swing.JButton nuevo;
-    private javax.swing.JMenuItem recaleOp;
     private javax.swing.JToggleButton rellenar;
+    private javax.swing.JMenuItem rescaleOp;
+    private javax.swing.JButton rotacion180;
+    private javax.swing.JButton rotacion270;
+    private javax.swing.JButton rotacion90;
+    private javax.swing.JSlider rotacionSlider;
     private javax.swing.JToggleButton transparencia;
     private javax.swing.JCheckBoxMenuItem verBarraAtributos;
     private javax.swing.JCheckBoxMenuItem verBarraEstado;

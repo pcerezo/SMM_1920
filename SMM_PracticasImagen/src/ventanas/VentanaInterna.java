@@ -22,6 +22,7 @@ import java.awt.peer.MouseInfoPeer;
 public class VentanaInterna extends javax.swing.JInternalFrame {
 
     private Point puntero; //Coordenadas del ratón en la ventana interna
+    private boolean girado;
     
     /** Creates new form VentanaInterna */
     public VentanaInterna() {
@@ -31,6 +32,7 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
         this.getLienzo2D().addLienzoAdapter(manejador);
         
         this.puntero = new Point();
+        this.girado = false;
     }
 
     
@@ -138,6 +140,14 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
     
     public Lienzo2D getLienzo2D() {
         return lienzo2D;
+    }
+    
+    public void setGirado(boolean g) {
+        this.girado = g;
+    }
+    
+    public boolean isGirado() {
+        return this.girado;
     }
 
     /*public void setLienzo2D(Lienzo2D lienzo2D) {
