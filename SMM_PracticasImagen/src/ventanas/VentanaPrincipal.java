@@ -119,6 +119,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         escalaMenos = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        mCuadSlider = new javax.swing.JSlider();
+        jLabel6 = new javax.swing.JLabel();
         PanelCentral = new javax.swing.JPanel();
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -137,6 +139,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lookupOp = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        duplicar = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
@@ -427,6 +430,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel5.setText("Rotación");
 
+        mCuadSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                mCuadSliderStateChanged(evt);
+            }
+        });
+        mCuadSlider.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                mCuadSliderFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                mCuadSliderFocusLost(evt);
+            }
+        });
+
+        jLabel6.setText("M:");
+
         javax.swing.GroupLayout barraAtributosLayout = new javax.swing.GroupLayout(barraAtributos);
         barraAtributos.setLayout(barraAtributosLayout);
         barraAtributosLayout.setHorizontalGroup(
@@ -444,54 +463,69 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(listaFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(28, 28, 28)
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(barraAtributosLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel3))
+                    .addGroup(barraAtributosLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(contrasteNormal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(contrasteIluminado, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(contrasteOscurecido, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(cuadratica, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3))
-                .addGap(34, 34, 34)
+                        .addComponent(contrasteOscurecido, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addComponent(rotacionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(cuadratica, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rotacionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(barraAtributosLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel5)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rotacion90, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rotacion180, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rotacion270, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addComponent(rotacion270, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(barraAtributosLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addGap(3, 3, 3)
+                        .addComponent(mCuadSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(barraAtributosLayout.createSequentialGroup()
                         .addComponent(escalaMas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(escalaMenos))
                     .addComponent(jLabel4))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap())
         );
         barraAtributosLayout.setVerticalGroup(
             barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deslizador, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(barraAtributosLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
                         .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(barraAtributosLayout.createSequentialGroup()
-                                .addGap(9, 9, 9)
                                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(contrasteIluminado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(contrasteNormal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(barraAtributosLayout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel4))
+                                    .addComponent(mCuadSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(8, 8, 8)
+                                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(contrasteOscurecido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cuadratica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(barraAtributosLayout.createSequentialGroup()
@@ -503,13 +537,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                                     .addComponent(escalaMas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(escalaMenos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(barraAtributosLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(rotacionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deslizador, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel6))
+                                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(barraAtributosLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rotacionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(barraAtributosLayout.createSequentialGroup()
+                                        .addGap(11, 11, 11)
+                                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(contrasteIluminado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(contrasteNormal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(barraEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -532,7 +574,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 529, Short.MAX_VALUE)
+            .addGap(0, 527, Short.MAX_VALUE)
         );
 
         PanelCentral.add(escritorio, java.awt.BorderLayout.CENTER);
@@ -643,6 +685,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         imagen.add(jMenuItem5);
 
+        duplicar.setText("Duplicar");
+        duplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                duplicarActionPerformed(evt);
+            }
+        });
+        imagen.add(duplicar);
+
         jMenuBar1.add(imagen);
 
         setJMenuBar(jMenuBar1);
@@ -692,14 +742,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         String extension = getExtension(f.getName());
                         
                         
-                        if (vi.isGirado()) {
-                            ImageIO.write(img, "png", f);
-                            
+                        if (vi.isGirado()) { //Si hemos girado la imagen, automáticamente la guardamos como png para que no haya error
+                            ImageIO.write(img, "png", f); //Independientemente de si habíamos escrito el formato o no
                         }
-                        else if (extension == null) {
+                        else if (extension == null) { //Si no escribimos ningún formato, por defecto se guarda como jpg
                             ImageIO.write(img, "jpg", f);
                         }
-                        else {
+                        else { //En otro caso, guardamos en el formato que indiquemos en el nombre (jpg o png)
                             ImageIO.write(img, extension, f);
                         }
                         
@@ -809,6 +858,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonPeraActionPerformed
 
     private void setOpcionesDefault() {
+        //Por defecto comenzamos con la herramienta del lápiz activada y el grosor a 1
         this.botonLapiz.setSelected(true);       
         this.botonLinea.setSelected(false);
         this.botonRectangulo.setSelected(false);
@@ -872,6 +922,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 aviso.setSize(500, 200);
                 aviso.setVisible(true);
                 System.err.println("Error al leer la imagen");
+                System.err.println(e.getLocalizedMessage());
             }
         }
         
@@ -915,6 +966,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             
             if (this.imagenOriginal.getColorModel().hasAlpha()){ //Tipos con canal alfa
                 System.out.println("Canal alfa");
+                //Si tienen alfa, tienen 4 componentes
                 offset = new float[4];// = {this.deslizador.getValue()-50, this.deslizador.getValue()-50, this.deslizador.getValue()-50, 0};
                 factor = new float[4];
 
@@ -923,7 +975,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 offset[3] = 0;
                 factor[3] = 1.0F;
             }
-            else{ // Si no tienen alfa
+            else{ // Si no tienen alfa tienen 3 componentes
                     offset = new float[3];
                     factor = new float[3];             
             }
@@ -1161,7 +1213,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     LookupOp lop = new LookupOp(tabla, null);
                     
                     //Compruebo si la imagen es BGR para evitar incompatibilidades al transformar
-                    if (img.getType() == BufferedImage.TYPE_INT_BGR) {
+                    if (img.getType() == BufferedImage.TYPE_INT_BGR || img.getType() == BufferedImage.TYPE_3BYTE_BGR || img.getType() == BufferedImage.TYPE_4BYTE_ABGR) {
                         img = ImageTools.convertImageType(img, BufferedImage.TYPE_INT_ARGB);
                     }
                     
@@ -1215,7 +1267,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             BufferedImage img = vi.getLienzo2D().getFondo();
             if (img != null) {
                 try{
-                    LookupTable lt = cuadratica(128.0);
+                    LookupTable lt = cuadratica(128);
                     LookupOp lop = new LookupOp(lt, null);
                     lop.filter(img, img);
                     vi.getLienzo2D().repaint();
@@ -1313,6 +1365,78 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_escalaMenosActionPerformed
 
+    private void duplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duplicarActionPerformed
+        VentanaInterna vi  = (VentanaInterna) this.escritorio.getSelectedFrame();
+        
+        if (vi != null) {
+            try{
+                BufferedImage img = vi.getLienzo2D().getFondo(true);
+                if (img != null){ //Si la imagen de esta ventana no es nula, creamos otra nueva ventana
+                    //Creamos imagen con canal alfa por si hay transparencias
+                    BufferedImage imgAlfa = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                    Graphics g = imgAlfa.getGraphics();
+                    VentanaInterna vi2 =  new VentanaInterna();
+                    this.escritorio.add(vi2); //La añadimos al escritorio
+                    vi2.setVisible(true);
+                    vi2.setTitle(vi.getTitle());
+                    vi2.getLienzo2D().setFondo(img); //Y le pasamos a su lienzo la imagen de la ventana copiada
+
+                    this.setOpcionesDefault();
+                    vi2.paint(g);
+                    
+                    //Añado los eventos que le pongo a todas las ventanas internas cuando las creo
+                    vi2.getLienzo2D().addMouseMotionListener(new MouseMotionAdapter() {
+                    @Override
+                    public void mouseMoved(MouseEvent me) {
+                        puntero.x = me.getX();
+                        puntero.y = me.getY();
+                        coordenadasPuntero.setText("Coordenadas del puntero: (" + puntero.x + ", " + puntero.y + ")");
+                    }
+                });
+                }
+            }
+            catch(Exception e){
+                 //Creamos una ventana de diálogo  donde indicamos el error
+                JDialog aviso = new JDialog(new JFrame(),"ERROR AL ABRIR");
+                JLabel l = new JLabel("El archivo seleccionado no es válido.");
+                aviso.add(l);
+                aviso.setSize(500, 200);
+                aviso.setVisible(true);
+                System.out.println("Error al duplicar la imagen");
+                System.err.println(e.getLocalizedMessage());
+            }
+        }
+    }//GEN-LAST:event_duplicarActionPerformed
+
+    private void mCuadSliderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mCuadSliderFocusGained
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        
+        //Obtenemos copia de la imagen original que es sobre la que aplicamos la función cuadrática con los distintos parámetros de m
+        ColorModel cm = vi.getLienzo2D().getFondo(false).getColorModel();
+        WritableRaster raster = vi.getLienzo2D().getFondo(false).copyData(null);
+        boolean alfaPre = vi.getLienzo2D().getFondo(false).isAlphaPremultiplied();
+        this.imagenOriginal = new BufferedImage(cm, raster, alfaPre, null);
+        
+    }//GEN-LAST:event_mCuadSliderFocusGained
+
+    private void mCuadSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mCuadSliderFocusLost
+        //La operación ha terminado
+        this.imagenOriginal = null;
+        this.mCuadSlider.setValue(0);
+    }//GEN-LAST:event_mCuadSliderFocusLost
+
+    private void mCuadSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_mCuadSliderStateChanged
+        VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
+        
+        //Aplico el filtro de función cuadrática sobre la imagen original
+        if (vi != null && this.imagenOriginal != null) {
+            LookupTable lt = cuadratica(this.mCuadSlider.getValue()*2.55);
+            LookupOp ltop = new LookupOp(lt, null);
+            ltop.filter(this.imagenOriginal, vi.getLienzo2D().getFondo());
+            vi.getLienzo2D().repaint();
+        }
+    }//GEN-LAST:event_mCuadSliderStateChanged
+
     private void rotar(double grados) {
         VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
         
@@ -1340,13 +1464,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public LookupTable cuadratica(double m) {
         double max;
         double coef = 0.01;
-        if (m >= 128)
+        if (m >= 128) //A partir de 128 obtiene el máximo en el 0
             max = (coef * Math.pow(0-m, 2));
-        else
+        else //En otro caso obtiene el máximo en 255
             max = (coef * Math.pow(255-m, 2));
         
-        double K = 255/max;
-        LookupTable lt;// = null;
+        double K = 255/max; //Coeficiente de normalización para tener valores en [0, 255]
+        LookupTable lt;
         byte funcionCuad[] = new byte[256];
         
         for (int x = 0; x < 256; x++) {
@@ -1466,6 +1590,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel coordenadasPuntero;
     private javax.swing.JButton cuadratica;
     private javax.swing.JSlider deslizador;
+    private javax.swing.JMenuItem duplicar;
     private javax.swing.JMenu edicion;
     private javax.swing.JToggleButton editar;
     private javax.swing.JButton escalaMas;
@@ -1480,6 +1605,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -1489,6 +1615,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<Color> listaColores;
     private javax.swing.JComboBox<String> listaFiltros;
     private javax.swing.JMenuItem lookupOp;
+    private javax.swing.JSlider mCuadSlider;
     private javax.swing.JMenuItem nuevaVentana;
     private javax.swing.JButton nuevo;
     private javax.swing.JToggleButton rellenar;
