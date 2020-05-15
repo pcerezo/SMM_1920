@@ -5,20 +5,22 @@
  */
 package ventanas;
 
-import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+
 /**
  *
  * @author pabloc
  */
-public class ColorCellRender implements ListCellRenderer<Color>{
+public class ContrasteCellRender implements ListCellRenderer<String>{
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends Color> jlist, Color e, int i, boolean bln, boolean bln1) {
-        PanelColor panel = new PanelColor(e);
+    public Component getListCellRendererComponent(JList<? extends String> jlist, String e, int i, boolean bln, boolean bln1) {
+        PanelContraste panel = new PanelContraste(e);
         return panel;
     }
+
+    
     
 }

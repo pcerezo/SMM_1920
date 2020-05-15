@@ -117,24 +117,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         rotacion90 = new javax.swing.JButton();
         rotacion180 = new javax.swing.JButton();
+        rotacionSlider = new javax.swing.JSlider();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
+        extraerBandas = new javax.swing.JButton();
+        colorSpace = new javax.swing.JComboBox<>();
+        jSeparator6 = new javax.swing.JToolBar.Separator();
+        jLabel2 = new javax.swing.JLabel();
+        brilloSlider = new javax.swing.JSlider();
+        jLabel4 = new javax.swing.JLabel();
+        String contrastes[] = {"0", "1", "2"};
+        listaContrastes = new javax.swing.JComboBox<>(contrastes);
         barraAtributos = new javax.swing.JPanel();
         barraEstado = new javax.swing.JPanel();
         etiquetaHerramientaActual = new javax.swing.JLabel();
         coordenadasPuntero = new javax.swing.JLabel();
-        brilloSlider = new javax.swing.JSlider();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        contrasteNormal = new javax.swing.JButton();
-        contrasteIluminado = new javax.swing.JButton();
-        contrasteOscurecido = new javax.swing.JButton();
         cuadratica = new javax.swing.JButton();
-        rotacionSlider = new javax.swing.JSlider();
-        jLabel5 = new javax.swing.JLabel();
         mCuadSlider = new javax.swing.JSlider();
-        jLabel6 = new javax.swing.JLabel();
-        extraerBandas = new javax.swing.JButton();
         mediaColores = new javax.swing.JButton();
-        colorSpace = new javax.swing.JComboBox<>();
         botonTintado = new javax.swing.JButton();
         botonSepia = new javax.swing.JButton();
         botonEcualizar = new javax.swing.JButton();
@@ -142,9 +141,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonRojo = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         tintadoSlider = new javax.swing.JSlider();
-        jLabel8 = new javax.swing.JLabel();
         umbralRojoSlider = new javax.swing.JSlider();
-        jLabel9 = new javax.swing.JLabel();
         PanelCentral = new javax.swing.JPanel();
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -341,7 +338,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraFormas.add(listaFiltros);
         barraFormas.add(jSeparator5);
 
-        escalaMas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/aumentar.png"))); // NOI18N
+        escalaMas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/baseline_add_circle_outline_black_18dp.png"))); // NOI18N
         escalaMas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 escalaMasActionPerformed(evt);
@@ -349,7 +346,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         barraFormas.add(escalaMas);
 
-        escalaMenos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/disminuir.png"))); // NOI18N
+        escalaMenos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/baseline_remove_circle_outline_black_18dp.png"))); // NOI18N
         escalaMenos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 escalaMenosActionPerformed(evt);
@@ -378,6 +375,74 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         barraFormas.add(rotacion180);
 
+        rotacionSlider.setMaximumSize(new java.awt.Dimension(50, 16));
+        rotacionSlider.setPreferredSize(new java.awt.Dimension(80, 16));
+        rotacionSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rotacionSliderStateChanged(evt);
+            }
+        });
+        rotacionSlider.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                rotacionSliderFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                rotacionSliderFocusLost(evt);
+            }
+        });
+        barraFormas.add(rotacionSlider);
+        barraFormas.add(jSeparator4);
+
+        extraerBandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/bandas.png"))); // NOI18N
+        extraerBandas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                extraerBandasActionPerformed(evt);
+            }
+        });
+        barraFormas.add(extraerBandas);
+
+        colorSpace.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RGB", "YCC", "GREY" }));
+        colorSpace.setMaximumSize(new java.awt.Dimension(32, 23));
+        colorSpace.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorSpaceActionPerformed(evt);
+            }
+        });
+        barraFormas.add(colorSpace);
+        barraFormas.add(jSeparator6);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/baseline_brightness_high_black_18dp.png"))); // NOI18N
+        barraFormas.add(jLabel2);
+
+        brilloSlider.setMaximumSize(new java.awt.Dimension(50, 16));
+        brilloSlider.setPreferredSize(new java.awt.Dimension(80, 16));
+        brilloSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                brilloSliderStateChanged(evt);
+            }
+        });
+        brilloSlider.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                brilloSliderFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                brilloSliderFocusLost(evt);
+            }
+        });
+        barraFormas.add(brilloSlider);
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/baseline_brightness_low_black_18dp.png"))); // NOI18N
+        barraFormas.add(jLabel4);
+
+        listaContrastes.setMaximumSize(new java.awt.Dimension(32, 23));
+        listaContrastes.setRenderer(new ContrasteCellRender());
+        listaContrastes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaContrastesActionPerformed(evt);
+            }
+        });
+        barraFormas.add(listaContrastes);
+
         getContentPane().add(barraFormas, java.awt.BorderLayout.PAGE_START);
 
         javax.swing.GroupLayout barraEstadoLayout = new javax.swing.GroupLayout(barraEstado);
@@ -396,67 +461,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addComponent(coordenadasPuntero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        brilloSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                brilloSliderStateChanged(evt);
-            }
-        });
-        brilloSlider.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                brilloSliderFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                brilloSliderFocusLost(evt);
-            }
-        });
-
-        jLabel1.setText("Brillo:");
-
-        jLabel3.setText("Contraste");
-
-        contrasteNormal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/contraste.png"))); // NOI18N
-        contrasteNormal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contrasteNormalActionPerformed(evt);
-            }
-        });
-
-        contrasteIluminado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/iluminar.png"))); // NOI18N
-        contrasteIluminado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contrasteIluminadoActionPerformed(evt);
-            }
-        });
-
-        contrasteOscurecido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/oscurecer.png"))); // NOI18N
-        contrasteOscurecido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contrasteOscurecidoActionPerformed(evt);
-            }
-        });
-
         cuadratica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cuadratica.png"))); // NOI18N
         cuadratica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cuadraticaActionPerformed(evt);
             }
         });
-
-        rotacionSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                rotacionSliderStateChanged(evt);
-            }
-        });
-        rotacionSlider.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                rotacionSliderFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                rotacionSliderFocusLost(evt);
-            }
-        });
-
-        jLabel5.setText("Rotación:");
 
         mCuadSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -472,26 +482,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("M:");
-
-        extraerBandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/bandas.png"))); // NOI18N
-        extraerBandas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                extraerBandasActionPerformed(evt);
-            }
-        });
-
         mediaColores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/combinar.png"))); // NOI18N
         mediaColores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mediaColoresActionPerformed(evt);
-            }
-        });
-
-        colorSpace.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RGB", "YCC", "GREY" }));
-        colorSpace.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorSpaceActionPerformed(evt);
             }
         });
 
@@ -553,8 +547,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("Tintado:");
-
         umbralRojoSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 umbralRojoSliderStateChanged(evt);
@@ -569,151 +561,63 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("Umbral");
-
         javax.swing.GroupLayout barraAtributosLayout = new javax.swing.GroupLayout(barraAtributos);
         barraAtributos.setLayout(barraAtributosLayout);
         barraAtributosLayout.setHorizontalGroup(
             barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(barraEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(barraAtributosLayout.createSequentialGroup()
-                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(brilloSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel1)))
-                .addGap(95, 95, 95)
+                .addGap(27, 27, 27)
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(contrasteNormal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(contrasteIluminado, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(contrasteOscurecido, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addGap(1, 1, 1)))
+                    .addComponent(mCuadSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                    .addComponent(cuadratica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(mediaColores, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addComponent(cuadratica, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mediaColores, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonTintado)
-                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(barraAtributosLayout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jLabel8))
-                            .addGroup(barraAtributosLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tintadoSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonSepia)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonEcualizar)
-                        .addGap(60, 60, 60))
-                    .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addComponent(mCuadSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9)
-                        .addGap(2, 2, 2)))
-                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonRojo)
-                    .addComponent(umbralRojoSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
-                        .addComponent(extraerBandas, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(colorSpace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel5)))
+                    .addComponent(tintadoSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                    .addComponent(botonTintado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(75, 75, 75)
+                .addComponent(botonSepia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(rotacionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(NColoresSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
-                .addGap(286, 286, 286))
+                .addComponent(botonEcualizar)
+                .addGap(38, 38, 38)
+                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(umbralRojoSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                    .addComponent(botonRojo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addComponent(jLabel7)
+                .addGap(1, 1, 1)
+                .addComponent(NColoresSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 803, Short.MAX_VALUE))
         );
         barraAtributosLayout.setVerticalGroup(
             barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
-                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(30, 30, 30))
+                .addGap(20, 20, 20)
+                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contrasteOscurecido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(barraAtributosLayout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(brilloSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(umbralRojoSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonRojo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGap(3, 3, 3)
                         .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contrasteIluminado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(contrasteNormal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(mCuadSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tintadoSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonSepia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                            .addComponent(mediaColores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cuadratica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonTintado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonEcualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(barraAtributosLayout.createSequentialGroup()
-                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(barraAtributosLayout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(barraAtributosLayout.createSequentialGroup()
-                                        .addComponent(NColoresSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(32, 32, 32))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(34, 34, 34)))))
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(rotacionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraAtributosLayout.createSequentialGroup()
-                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(barraAtributosLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(mCuadSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)
-                                    .addComponent(umbralRojoSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(barraAtributosLayout.createSequentialGroup()
-                                        .addGap(8, 8, 8)
-                                        .addGroup(barraAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(mediaColores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(extraerBandas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(cuadratica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(botonTintado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(botonSepia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(botonEcualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(barraAtributosLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(botonRojo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(barraAtributosLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(colorSpace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(barraAtributosLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tintadoSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(2, 2, 2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel7)
+                            .addComponent(NColoresSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(8, 8, 8)
                 .addComponent(barraEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -735,7 +639,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
+            .addGap(0, 621, Short.MAX_VALUE)
         );
 
         PanelCentral.add(escritorio, java.awt.BorderLayout.CENTER);
@@ -1462,18 +1366,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lookupOpActionPerformed
 
-    private void contrasteNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasteNormalActionPerformed
-        contraste(LookupTableProducer.TYPE_SFUNCION);
-    }//GEN-LAST:event_contrasteNormalActionPerformed
-
-    private void contrasteIluminadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasteIluminadoActionPerformed
-        contraste(LookupTableProducer.TYPE_LOGARITHM);
-    }//GEN-LAST:event_contrasteIluminadoActionPerformed
-
-    private void contrasteOscurecidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasteOscurecidoActionPerformed
-        contraste(LookupTableProducer.TYPE_POWER);
-    }//GEN-LAST:event_contrasteOscurecidoActionPerformed
-
     private void contraste(int tipo) {
         VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
         
@@ -1954,7 +1846,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if (this.imagenOriginal != null) {
                 float valor = this.tintadoSlider.getValue()*(float)0.01;
                 TintOp top = new TintOp((Color)this.listaColores.getSelectedItem(), valor);
-                top.filter(this.imagenOriginal, vi.getLienzo2D().getFondo());
+                top.filter(this.imagenOriginal, vi.getLienzo2D().getFondo()); //No funciona con png
                 vi.getLienzo2D().repaint();
             }
         }
@@ -1981,6 +1873,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_umbralRojoSliderStateChanged
+
+    private void listaContrastesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaContrastesActionPerformed
+        int id = Integer.parseInt((String)this.listaContrastes.getSelectedItem());
+        switch(id){
+            case 0:
+                contraste(LookupTableProducer.TYPE_SFUNCION);
+                break;
+            case 1:
+                contraste(LookupTableProducer.TYPE_LOGARITHM);
+                break;
+            case 2:
+                contraste(LookupTableProducer.TYPE_POWER);
+                break;
+        }
+    }//GEN-LAST:event_listaContrastesActionPerformed
 
     private void rotar(double grados) {
         VentanaInterna vi = (VentanaInterna) this.escritorio.getSelectedFrame();
@@ -2149,9 +2056,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSlider brilloSlider;
     private javax.swing.JMenuItem colorConvertOp;
     private javax.swing.JComboBox<String> colorSpace;
-    private javax.swing.JButton contrasteIluminado;
-    private javax.swing.JButton contrasteNormal;
-    private javax.swing.JButton contrasteOscurecido;
     private javax.swing.JMenuItem convolveOp;
     private javax.swing.JLabel coordenadasPuntero;
     private javax.swing.JButton cuadratica;
@@ -2167,13 +2071,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem guardarDibujo;
     private javax.swing.JMenu imagen;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -2181,8 +2081,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
+    private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JComboBox<Color> listaColores;
+    private javax.swing.JComboBox<String> listaContrastes;
     private javax.swing.JComboBox<String> listaFiltros;
     private javax.swing.JMenuItem lookupOp;
     private javax.swing.JSlider mCuadSlider;
